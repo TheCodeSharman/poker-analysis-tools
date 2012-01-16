@@ -14,6 +14,7 @@ grammar PokerStars;
 
 options {
   language = Python;
+  output = None;
 }
 
 // Lexer specs
@@ -37,7 +38,6 @@ ID: '#' NUMBER ;
 // to dismabiguate some clauses.
 
 // Top level rules
-file: game+ ;
 game: heading tableSummary player+ blinds holeAction flopAction? turnAction? riverAction? gameSummary ;
   
 // Simple and token rules

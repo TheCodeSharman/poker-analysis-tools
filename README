@@ -1,0 +1,22 @@
+poker-analysis-tools
+
+The are a couple of existing opens ource libraris for various
+online poker related tasks. But all of them seem to lack the
+reliability I'm looking for.
+
+The goals of this project are:
+  - Keep the code quaity of the project to the highest practical level.
+  - Be cross platform whereever possible.
+  - Provide easy installation on all platforms.
+  - Be robust to error conditions.
+
+As a result the following are policies:
+  - Every module should include unit tests.
+  - Source code should be as declarative as possible.
+  - The level of decoupling should be high.
+  - Source code should be coded in a consistent style.
+  - Design level documentation should be available.
+
+This is the ideal. Hopefully we can get there.
+
+antler88
