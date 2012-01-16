@@ -1,0 +1,52 @@
+PokerStars Game #72948316879: Tournament #491423247, $1.32+$0.18 USD Hold'em No Limit - Level III (25/50) - 2011/12/29 23:43:48 AEST [2011/12/29 7:43:48 ET]
+Table '491423247 1' 9-max Seat #7 is the button
+Seat 1: Kanjano (1485 in chips) 
+Seat 2: PunchyDude (1840 in chips) 
+Seat 3: bandziorno81 (1425 in chips) 
+Seat 4: marcosmamori (1665 in chips) 
+Seat 5: kebabbman (1470 in chips) 
+Seat 6: antler88 (1175 in chips) 
+Seat 7: x huesito x (1350 in chips) 
+Seat 8: vangel2121 (2421 in chips) 
+Seat 9: Chunclis (669 in chips) 
+vangel2121: posts small blind 25
+Chunclis: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [3h Kh]
+Kanjano: folds 
+PunchyDude: folds 
+bandziorno81: folds 
+marcosmamori: folds 
+kebabbman: folds 
+antler88: folds 
+x huesito x: folds 
+vangel2121: calls 25
+Chunclis: checks 
+*** FLOP *** [3d Ad Ts]
+vangel2121: checks 
+Chunclis: bets 50
+vangel2121: calls 50
+*** TURN *** [3d Ad Ts] [2s]
+vangel2121: checks 
+Chunclis: bets 120
+vangel2121: calls 120
+*** RIVER *** [3d Ad Ts 2s] [9d]
+vangel2121: checks 
+Chunclis: bets 440
+vangel2121: calls 440
+*** SHOW DOWN ***
+Chunclis: shows [Kd 7d] (a flush, Ace high)
+vangel2121: mucks hand 
+Chunclis collected 1320 from pot
+*** SUMMARY ***
+Total pot 1320 | Rake 0 
+Board [3d Ad Ts 2s 9d]
+Seat 1: Kanjano folded before Flop (didn't bet)
+Seat 2: PunchyDude folded before Flop (didn't bet)
+Seat 3: bandziorno81 folded before Flop (didn't bet)
+Seat 4: marcosmamori folded before Flop (didn't bet)
+Seat 5: kebabbman folded before Flop (didn't bet)
+Seat 6: antler88 folded before Flop (didn't bet)
+Seat 7: x huesito x (button) folded before Flop (didn't bet)
+Seat 8: vangel2121 (small blind) mucked [Kc Ks]
+Seat 9: Chunclis (big blind) showed [Kd 7d] and won (1320) with a flush, Ace high

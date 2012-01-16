@@ -1,0 +1,41 @@
+PokerStars Game #72948061288: Tournament #491423247, $1.32+$0.18 USD Hold'em No Limit - Level I (10/20) - 2011/12/29 23:36:49 AEST [2011/12/29 7:36:49 ET]
+Table '491423247 1' 9-max Seat #6 is the button
+Seat 1: Kanjano (1550 in chips) 
+Seat 2: PunchyDude (1600 in chips) 
+Seat 3: bandziorno81 (1470 in chips) 
+Seat 4: marcosmamori (1410 in chips) 
+Seat 5: kebabbman (1470 in chips) 
+Seat 6: antler88 (1470 in chips) 
+Seat 7: x huesito x (1480 in chips) 
+Seat 8: vangel2121 (1610 in chips) 
+Seat 9: Chunclis (1440 in chips) 
+x huesito x: posts small blind 10
+vangel2121: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [Ks Ac]
+Chunclis: folds 
+Kanjano: folds 
+PunchyDude: folds 
+bandziorno81: folds 
+marcosmamori: folds 
+kebabbman: folds 
+antler88: raises 60 to 80
+x huesito x: folds 
+vangel2121: calls 60
+*** FLOP *** [2d 3d Qh]
+vangel2121: checks 
+antler88: bets 170
+vangel2121: raises 170 to 340
+antler88: folds 
+Uncalled bet (170) returned to vangel2121
+vangel2121 collected 510 from pot
+*** SUMMARY ***
+Total pot 510 | Rake 0 
+Board [2d 3d Qh]
+Seat 1: Kanjano folded before Flop (didn't bet)
+Seat 2: PunchyDude folded before Flop (didn't bet)
+Seat 3: bandziorno81 folded before Flop (didn't bet)
+Seat 4: marcosmamori folded before Flop (didn't bet)
+Seat 5: kebabbman folded before Flop (didn't bet)
+Seat 6: antler88 (button) folded on the Flop
+Seat 7: x huesito x (small blind) folded 
