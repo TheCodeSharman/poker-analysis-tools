@@ -1,0 +1,61 @@
+parser frame work for reading hands
+
+1. select files from folder
+2. determine type of file -> poker stars etc
+3. determine game type
+4. determine number of players and other game parameters
+5. read each hand
+
+class Parser
+   sttaic canParseFile : Boolean
+   static sitename : String
+   parseGame : Game
+   
+   
+-- The following is a data structure that describes a
+-- game. Statistics, equity, hand ranges, etc. are
+-- specifically excluded from this data structure
+-- to maximise decoupling.
+   
+class Game
+   gameType : gametype --> Holdem, Stud, Draw, Omaha, Razz, Badugi etc.
+   numOfPlayers : Integer
+   ante : Money
+   players[] : Player  -- players in order of position starting with left of button
+   actions[] : BettingRound -- each flop, turn, river etc. first round is ante or blinds
+   winners[] : Player  -- there may be more than one winner
+   winAmount[] : Money  -- and each player may be paid a different amount
+   rake : Money -- rake to site operator
+   
+class FlopGame : Hand
+  board[] : Card
+  
+class DrawGame : Hand
+  draws[] : PlayerDraw
+  
+class PlayerDraw
+  round : BettingRound --> reference betting round that applies to this draw
+  player : Player  --> reference to player
+  cards[] : Card
+  
+class Player
+  name : String
+  startingHand[] : Card -- hand may be null if not known
+  initialStack : Money  -- stack before cards dealt
+  
+class Card
+  value : CardValue
+  suit : SuitValue
+  
+class BettingRound
+  pot : Money -- pot after hand
+  playerActions[] : Action
+  rake : Money -- rake to site operator
+  
+class Action
+  action : AcionEnum --> Raise, Call, Fold, Check, Post
+  betAmount : Money
+  stack : Money --> stack after action
+  
+
+  
