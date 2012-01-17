@@ -7,11 +7,12 @@
 // We use a combined grammar here because the complexity doesn't
 // justify splitting the grammar into multiple files.
 //
-grammar PokerStars;
+grammar pokerstars;
 
 options {
   language = Python;
-  output = None;
+  output = AST; 
+  ASTLabelType=CommonTree;
 }
 
 // Lexer specs
@@ -35,7 +36,7 @@ ID: '#' NUMBER ;
 // to dismabiguate some clauses.
 
 // Top level rules
-game: heading tableSummary player+ blinds holeAction flopAction? turnAction? riverAction? gameSummary ;
+game: heading tableSummary player+ blinds holeAction flopAction? turnAction? riverAction? showdownAction? gameSummary ;
   
 // Simple and token rules
 timezone: 'AEST' | 'ET' ;      // TODO: flesh these out
@@ -49,6 +50,7 @@ money: '$' NUMBER '.' NUMBER ;
 
 tableId: '\'' NUMBER  NUMBER '\'' ;
 fees: money '+' money  currency ;
+
 playerId: TOKEN+ ; // Just to make things difficult some player names have white space 
                    // in their names! Work around this we simply collect adjacent TOKEN's
                    
@@ -87,7 +89,7 @@ turnAction: '*** TURN ***'  dealtCards  dealtCards NL playerAction+ betSummary* 
 
 riverAction: '*** RIVER ***'  dealtCards  dealtCards NL playerAction+ betSummary* ; 
 
-showdownAction: '*** SHOWDOWN ***' NL betSummary+ ;
+showdownAction: '*** SHOW DOWN ***' NL betSummary+ ;
   
 foldSummary: ( 'folded before Flop' | 'folded on the Flop' | 'folded on the Turn' | 'folded on the River')  ( '(didn\'t bet)')? ;
   
