@@ -67,19 +67,37 @@ tableSummary: 'Table'  tableId  ( '9-max' | '6-max' ) ' Seat #' NUMBER ' is the 
 blinds: playerId ':' 'posts small blind' NUMBER NL playerId ':' 'posts big blind' NUMBER NL ;
 
 playerAction: playerId ':'  action NL ;
-  
-betSummary: 'Uncalled bet' '(' NUMBER ')' 'returned to'  playerId NL | playerId  'collected'  NUMBER  'from pot' NL ;
+    
+handType: ( TOKEN | ',') + ;
+    
+betSummary: 
+     'Uncalled bet' '(' NUMBER ')' 'returned to'  playerId NL 
+   | playerId  'collected'  NUMBER  'from pot' NL 
+   | playerId ':' 
+    ( 'shows' dealtCards '(' handType ')'
+    | 'mucks hand'
+    | 'doesn\'t show hand') NL
+   ; 
 
 holeAction: '*** HOLE CARDS ***' NL 'Dealt to'  playerId  dealtCards NL playerAction+ betSummary* ;
+
 flopAction: '*** FLOP ***'  dealtCards NL playerAction+ betSummary* ;
+
 turnAction: '*** TURN ***'  dealtCards  dealtCards NL playerAction+ betSummary* ;
+
 riverAction: '*** RIVER ***'  dealtCards  dealtCards NL playerAction+ betSummary* ; 
+
+showdownAction: '*** SHOWDOWN ***' NL betSummary+ ;
   
 foldSummary: ( 'folded before Flop' | 'folded on the Flop' | 'folded on the Turn' | 'folded on the River')  ( '(didn\'t bet)')? ;
   
 playerSummary: 
   'Seat'  NUMBER ':'  playerId  ('(button)'  | '(small blind)'  | '(big blind)' )?  
-  ( foldSummary | 'collected'  '(' NUMBER ')' )
+  ( foldSummary 
+  | 'collected'  '(' NUMBER ')' 
+  | 'mucked' dealtCards
+  | 'showed' dealtCards 'and' 'won' '(' NUMBER ')' 'with' handType 
+  )
   ;
   
-gameSummary: '*** SUMMARY ***' NL 'Total pot'  NUMBER  '|'  'Rake'  NUMBER NL 'Board'  dealtCards (NL playerSummary)+ ;
+gameSummary: '*** SUMMARY ***' NL 'Total pot'  NUMBER  '|'  'Rake'  NUMBER (NL 'Board'  dealtCards)? (NL playerSummary)+ ;
