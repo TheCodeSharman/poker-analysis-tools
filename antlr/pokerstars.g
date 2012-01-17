@@ -33,7 +33,7 @@ ID: '#' NUMBER ;
 // Parser specs
 // 
 // Mostly straight forward, the only trick here is use new line characters
-// to dismabiguate some clauses.
+// to disambiguate some clauses.
 
 // Top level rules
 game: heading tableSummary player+ blinds holeAction flopAction? turnAction? riverAction? showdownAction? gameSummary ;

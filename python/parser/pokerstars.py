@@ -5,7 +5,7 @@ import antlr3
 import data
 import parser
 
-class PokerStars(parser.HandParser):
+class PokerStarsHandParser(parser.HandParser):
     ''' The PokerStars hand parser implementation uses the antlr3 module'''
     @staticmethod
     def createParser( file_name ):
