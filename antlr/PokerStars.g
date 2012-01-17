@@ -2,10 +2,7 @@
 // PokerStars.g
 //
 // This is an antlr3 grammar to build a AST from a PokerStars 
-// history file. Some projects seem to prefer regular expressions
-// but I find those to be overly difficult to maintain so using 
-// a fully fledged parser generator seems like a better
-// option to me.
+// history file.
 //
 // We use a combined grammar here because the complexity doesn't
 // justify splitting the grammar into multiple files.
