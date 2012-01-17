@@ -15,26 +15,35 @@ game:
   ^( GAME 
      ^(INFO id=ID tid=ID fees type levelDetails dt=dateTime dtg=dateTime ))
   {
+    h = Hand()
+    h.gameType = $type.type
+    return h
   };
     
-type: HOLDEMNL { return Hand.HoldEmNoLimit } ;
+type returns [type]
+  : HOLDEMNL { $type=Hand.HoldEmNoLimit } ;
   
-levelDetails: sb=NUMBER bb=NUMBER { return [ $sb.text, $bb.text ] } ;
+levelDetails returns [small,big]: sb=NUMBER bb=NUMBER
+{ 
+    $small = $sb.text
+    $big = $bb.text
+} ;
 
-dateTime: d=NUMBER m=NUMBER y=NUMBER h=NUMBER min=NUMBER s=NUMBER tz=timezone
+dateTime returns [dt]: d=NUMBER m=NUMBER y=NUMBER h=NUMBER min=NUMBER s=NUMBER tz=timezone
    {
-     return datetime.datetime( $y.text, $m.text, $d.text, $h.text, $min.text, $s.text, $tz.text )
+     $dt = datetime.datetime( $y.text, $m.text, $d.text, $h.text, $min.text, $s.text, $tz.text )
    };
   
-timezone:
-   'AEST' { return datetime.tzinfo.utcoffset( 10 ) }
-  | 'ET'  { return datetime.tzinfo.utcoffset( 0 ) }
+timezone returns [tz]:
+   'AEST' { $tz = datetime.tzinfo.utcoffset( 10 ) }
+  | 'ET'  { $tz = datetime.tzinfo.utcoffset( 0 ) }
   ;
   
-fees:
+fees returns [byin, curr] :
   buyin=money fee=money currency
   {
-    return [ Money( $buyin.text, $currency.text ), Money( $fee.text, $currency.text ) ]
+    $byin = Money( $buyin.text, $currency.text )
+    $curr = Money( $fee.text, $currency.text )
   };
  
  money: d=NUMBER c=NUMBER { return d*100+c; };
