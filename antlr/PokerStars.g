@@ -7,7 +7,7 @@
 // We use a combined grammar here because the complexity doesn't
 // justify splitting the grammar into multiple files.
 //
-grammar pokerstars;
+grammar PokerStars;
 
 options {
   language = Python;

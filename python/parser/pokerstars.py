@@ -1,9 +1,9 @@
-import gen.pokerstarsParser
-import gen.pokerstarsLexer 
-import gen.pokerstars_walk
 import antlr3
+
+import gen.PokerStarsParser
+import gen.PokerStarsLexer 
+import gen.PokerStarsWalker
  
-import data
 import parser
 
 class PokerStarsHandParser(parser.HandParser):
@@ -11,9 +11,9 @@ class PokerStarsHandParser(parser.HandParser):
     @staticmethod
     def createParser( file_name ):
         charStream = antlr3.ANTLRFileStream( file_name, encoding="utf-8")
-        lexer = gen.pokerstarsLexer.pokerstarsLexer( charStream )
+        lexer = gen.PokerStarsLexer.PokerStarsLexer( charStream )
         tokenStream = antlr3.CommonTokenStream(lexer)
-        return gen.pokerstarsParser.pokerstarsParser( tokenStream )
+        return gen.PokerStarsParser.PokerStarsParser( tokenStream )
 
     def __init__(self, file_name):
         self.site_name = 'PokerStars'
@@ -32,7 +32,7 @@ class PokerStarsHandParser(parser.HandParser):
         result = self.parser.game()
         nodeStream = antlr3.tree.CommonTreeNodeStream(result.tree)
         nodeStream.setTokenStream(self.parser.getTokenStream())
-        walker = gen.pokerstars_walk.pokerstars_walk(nodeStream)
+        walker = gen.PokerStarsWalker.PokerStarsWalker(nodeStream)
         return walker.game()
        
         
