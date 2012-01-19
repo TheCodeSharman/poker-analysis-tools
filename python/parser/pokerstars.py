@@ -1,5 +1,6 @@
 import gen.pokerstarsParser
 import gen.pokerstarsLexer 
+import gen.pokerstars_walk
 import antlr3
  
 import data
@@ -29,7 +30,9 @@ class PokerStarsHandParser(parser.HandParser):
     
     def parseHand(self):
         result = self.parser.game()
-        print result.tree.toStringTree()
-        return data.Hand()
+        nodeStream = antlr3.tree.CommonTreeNodeStream(result.tree)
+        nodeStream.setTokenStream(self.parser.getTokenStream())
+        walker = gen.pokerstars_walk.pokerstars_walk(nodeStream)
+        return walker.game()
        
         

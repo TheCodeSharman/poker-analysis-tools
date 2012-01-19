@@ -108,11 +108,11 @@ levelDetails: 'Level'! levelNum! '('! NUMBER '/'! NUMBER ')'! ;
 
 // Possible player betting actions: TODO: is there a reraise ? 
 action: 
-    'folds' -> ^( FOLD )
+    'folds' -> FOLD
   | 'bets' amount=NUMBER -> ^( BET $amount )
   | 'raises' ramount=NUMBER 'to' amount=NUMBER -> ^( RAISE $ramount $amount )
-  | 'calls' amount=NUMBER -> ^( CALL )
-  | 'checks' -> ^( CHECK )
+  | 'calls' amount=NUMBER -> ^( CALL $amount )
+  | 'checks' -> CHECK
   ;
 
 player: 'Seat' seat=NUMBER ':' id=playerId '(' stack=NUMBER ' in chips)' NL -> ^( PLAYER $seat $id $stack ) ; 
