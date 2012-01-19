@@ -227,11 +227,11 @@ showdownAction returns [ deadcards, win ] :
     $deadcards = []
     $win = []
     if $bets:
-	    for b in $bets:
-	      if b.cards:
-	        $deadcards.append( [b.pid, b.cards] )
-	      if b.win:
-	        $win.append( [b.pid, b.win] )
+      for b in $bets:
+        if b.cards:
+          $deadcards.append( [b.pid, b.cards] )
+        if b.win:
+          $win.append( [b.pid, b.win] )
   };
   
  gameSummary returns [ pot, rake ] :
