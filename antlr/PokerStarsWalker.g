@@ -102,7 +102,9 @@ playerId returns [id] : ts+=TOKEN+
   { 
     $id = ""
     for t in $ts:
-      $id+=" "+t.text
+      if $id != "":
+        $id+=" "
+      $id+=t.text
   };
 
 player returns [ pyr ] : 
