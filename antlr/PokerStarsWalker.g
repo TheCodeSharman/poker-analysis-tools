@@ -21,7 +21,7 @@ game returns [ hand ]
   } : 
   ^( GAME 
      ^(INFO id=ID tid=ID fees type levelDetails dt=dateTime dtg=dateTime )  
-     ^(TABLE tableId tsize=tableSize button=NUMBER )  
+     ^(TABLE tableId tsize=tableSize button=ID )  
         {
            h.numOfSeats = $tsize.size
            h.gameType = $type.type
@@ -75,8 +75,8 @@ dateTime returns [dt]: y=NUMBER m=NUMBER d=NUMBER h=NUMBER min=NUMBER s=NUMBER t
   };
   
 timezone returns [tz]:
-   'AEST' { $tz = timezone('Australia/Tasmania') }
-  | 'ET'  { $tz = timezone('UTC') }
+   AEST { $tz = timezone('Australia/Tasmania') }
+  | ET  { $tz = timezone('UTC') }
   ;
   
 fees returns [byin, curr] :
@@ -92,13 +92,13 @@ money returns [ cents ]: d=NUMBER c=NUMBER
   };
   
  currency returns [ curr ]: 
-     'USD' { $curr = Money.USD }
-   | 'AUD' { $curr = Money.AUD }
+     USD { $curr = Money.USD }
+   | AUD { $curr = Money.AUD }
   ;
   
 tableId returns [id] : a=NUMBER b=NUMBER { $id = $a.text + ' ' + $b.text } ;
 
-playerId returns [id] : ts+=TOKEN+ 
+playerId returns [id] : ts+=TEXT+ 
   { 
     $id = ""
     for t in $ts:
@@ -126,7 +126,7 @@ blinds returns [ bl ]  :
     $bl = [ $playerId.id, a ]
   };
 
-deal returns [ cards ] : ^(CARDS cds+=TOKEN+ ) 
+deal returns [ cards ] : ^(CARDS cds+=TEXT+ ) 
   { 
     $cards = []
     for c in $cds:

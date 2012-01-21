@@ -15,14 +15,11 @@ options {
   ASTLabelType=CommonTree;
 }
 
+
 tokens {
   GAME;
   INFO;
-  TABLE;
   CARDS;
-  NINEMAX;
-  SIXMAX;
-  HOLDEMNL;
   PLAYER;
   ACTION;
   SMALLBLIND;
@@ -30,10 +27,7 @@ tokens {
   BUTTON;
   POST;
   DEAL;
-  FLOP;
-  TURN;
-  RIVER;
-  SHOWDOWN;
+
   FOLD;
   BET;
   RAISE;
@@ -48,20 +42,108 @@ tokens {
   BLINDS;
 }
 
+
+@lexer::members {
+    inPlayerId = 0
+}
+
+   
+   
 // Lexer specs
 //
 // We don't try to achieve too much in the lexer, it provides a 
 // simple first pass tokenising that significantly simplifies the
 // token parsing stage.
+
+//
+// A further complication is that the player names aren't delimited 
+// in anyway so we need some context-sensitive logic to parse them
+// properly.
+//
+
+
+
 fragment DIGIT: '0'..'9' ;
-fragment ALPHA: 'a'..'z' | 'A'.. 'Z'  ;
-fragment ALPHANUM: ALPHA | DIGIT ;
+fragment ALPHANUM: 'a'..'z' | 'A'..'Z' | DIGIT;
+
+TOURNAMENT: 'Tournament' ;
+POKERSTARSGAME: 'PokerStars Game' ;
+SEAT: 'Seat' ;
+COMMA: ',' ;
+COLON: ':' ;
+DASH: '-' ;
+HASH: '#' ;
+PIPE: '|' ;
+PERIOD: '.' ;
+QUOT: '\'' ;
+PLUS: '+' ;
+BO: '(' ;
+BC: ')' ;
+INCHIPS: 'in chips' ;
+FOLDS: 'folds' ;
+BETS: 'bets' ;
+RAISES: 'raises' ;
+CALLS: 'calls' ;
+CHECKS: 'checks' ;
+TO: 'to' ;
+LEVEL: 'Level';
+SBO: '[' ;
+SBC: ']' ;
+DOLLARS: '$' ;
+SLASH: '/' ;
+HOLDEMNL: 'Hold\'em No Limit';
+AEST: 'AEST' ;
+ET: 'ET' ;
+USD: 'USD' ;
+AUD: 'AUD' ;
+NINEMAX: '9-max';
+SIXMAX: '6-max' ;
+NUMERAL: 'I' | 'II' | 'III' | 'IV' | 'V' | 'VI' | 'VII' | 'VIII' | 'VIIII' 
+  | 'X' | 'XI' | 'XII' | 'XIII' | 'XIIII' | 'XV' | 'XVI' | 'XVII' | 'XVIII'
+  | 'XVIIII' | 'XX' | 'XXI' | 'XXII' | 'XXIII' | 'XXIIII' | 'XXV' | 'XXVI' ;
+POSTS: 'posts' ;
+ISBUTTON: 'is the button' ;
+TABLE: 'Table' ;
+UNCALLED: 'Uncalled bet' ;
+RETURNEDTO: 'returned to' ;
+COLLECTED: 'collected' ; 
+FROMPOT: 'from pot' ;
+SHOWS: 'shows' ;
+MUCKS: 'mucks hand' ;
+NOSHOW: 'doesn\'t show hand' ;
+DEALTTO: 'Dealt to' ;
+HOLECARDS: '*** HOLE CARDS ***' ;
+FLOP: '*** FLOP ***' ;
+TURN: '*** TURN ***' ;
+RIVER: '*** RIVER ***' ;
+SHOWDOWN: '*** SHOW DOWN ***' ;
+SUMMARY: '*** SUMMARY ***' ;
+BUTTON: 'button';
+SMALLBLIND: 'small blind' ;
+BIGBLIND: 'big blind' ;
+FOLDEDBF: 'folded before Flop' ;
+FOLDEDONFL: 'folded on the Flop';
+FOLDEDONT: 'folded on the Turn';
+FOLDRIVER: 'folded on the River' ;
+NOBET: 'didn\'t bet' ;
+TOTALPOT: 'Total pot' ;
+MUCKED: 'mucked' ;
+SHOWED: 'showed' ;
+ANDWON: 'and won' ;
+WITH: 'with' ;
+RAKE: 'Rake';
+BOARD: 'Board' ;
 
 WHITESPACE: ' '+ { $channel = HIDDEN; } ;
 NL: ( '\n' | '\r' )+ ;
+
 NUMBER: DIGIT+ ;
-TOKEN: ALPHANUM* ;
+
+TEXT: ALPHANUM+ ;
+
 ID: '#' NUMBER ;
+//PLAYERID: {self.inPlayerId}?=> ('\u0020'..'\ufffd')+ ;
+
 
 // Parser specs
 // 
@@ -85,113 +167,107 @@ game:
    ;
   
 // Simple and token rules
-timezone: 'AEST' | 'ET' ;      // TODO: flesh these out
-currency: 'USD' | 'AUD' ;      // TODO: flesh these out
-type: 'Hold\'em No Limit' -> HOLDEMNL
-   ;    // TODO: Add more supported types
-levelNum: 'I' | 'II' | 'III' | 'IV' | 'V' | 'VI' | 'VII' | 'VIII' | 'VIIII' 
-  | 'X' | 'XI' | 'XII' | 'XIII' | 'XIIII' | 'XV' | 'XVI' | 'XVII' | 'XVIII'
-  | 'XVIIII' | 'XX' | 'XXI' | 'XXII' | 'XXIII' | 'XXIIII' | 'XXV' | 'XXVI' ;
+timezone: AEST | ET ;      // TODO: flesh these out
+currency: USD | AUD;      // TODO: flesh these out
+type: HOLDEMNL ;    // TODO: Add more supported types
+levelNum: NUMERAL ;
 dateTime:  
-   NUMBER '/'! NUMBER '/'! NUMBER  NUMBER ':'! NUMBER ':'! NUMBER timezone
+   NUMBER SLASH! NUMBER SLASH! NUMBER  NUMBER COLON! NUMBER COLON! NUMBER timezone
    ;
-money: '$'! NUMBER '.'! NUMBER ;
+money: DOLLARS! NUMBER PERIOD! NUMBER ;
 
-tableId: '\''! NUMBER NUMBER '\''! ;
-fees: money '+'! money currency ;
+tableId: QUOT! NUMBER NUMBER QUOT! ;
+fees: money PLUS! money currency ;
 
-playerId: TOKEN+ ; // Just to make things difficult some player names have white space 
-                   // in their names! Work around this we simply collect adjacent TOKEN's
-                   
-dealtCards: '[' TOKEN+ ']' -> ^(CARDS TOKEN+ ) ; // We parse the card details in a subsequent phase to make it easier
-levelDetails: 'Level'! levelNum! '('! NUMBER '/'! NUMBER ')'! ;
+playerId: TEXT+  ;
+
+dealtCards: SBO TEXT+ SBC -> ^(CARDS TEXT+ ) ; // We parse the card details in a subsequent phase to make it easier
+levelDetails: LEVEL! levelNum! BO! NUMBER SLASH! NUMBER BC! ;
 
 // Possible player betting actions: TODO: is there a reraise ? 
 action: 
-    'folds' -> FOLD
-  | 'bets' amount=NUMBER -> ^( BET $amount )
-  | 'raises' ramount=NUMBER 'to' amount=NUMBER -> ^( RAISE $ramount $amount )
-  | 'calls' amount=NUMBER -> ^( CALL $amount )
-  | 'checks' -> CHECK
+    FOLDS -> FOLD
+  | BETS amount=NUMBER -> ^( BET $amount )
+  | RAISES ramount=NUMBER TO amount=NUMBER -> ^( RAISE $ramount $amount )
+  | CALLS amount=NUMBER -> ^( CALL $amount )
+  | CHECKS -> CHECK
   ;
 
-player: 'Seat' seat=NUMBER ':' id=playerId '(' stack=NUMBER ' in chips)' NL -> ^( PLAYER $seat $id $stack ) ; 
+player: SEAT seat=NUMBER COLON id=playerId BO stack=NUMBER INCHIPS BC NL -> ^( PLAYER $seat $id $stack ) ; 
 
-heading: 'PokerStars Game' id=ID ':' 'Tournament' tid=ID ',' f=fees t=type '-' lvl=levelDetails '-' dt=dateTime '[' dtg=dateTime ']'  NL
+heading: POKERSTARSGAME id=ID COLON TOURNAMENT tid=ID COMMA f=fees t=type DASH lvl=levelDetails DASH dt=dateTime SBO dtg=dateTime SBC  NL
    -> ^(INFO $id $tid $f $t $lvl $dt $dtg )
    ;
 
-tableSize:
-     '9-max' -> NINEMAX
-   | '6-max' -> SIXMAX
+tableSize: NINEMAX | SIXMAX
    ;
 
 tableSummary: 
-   'Table' id=tableId  sz=tableSize' Seat #' button=NUMBER ' is the button' NL 
+   TABLE id=tableId  sz=tableSize SEAT button=ID ISBUTTON NL 
    -> ^( TABLE $id $sz $button )
    ;
 
-blindType:
-     'posts small blind' -> SMALLBLIND 
-   | 'posts big blind' -> BIGBLIND
+blindType: POSTS! SMALLBLIND | POSTS! BIGBLIND
    ;
 
 blinds: 
-   id=playerId ':' t=blindType amount=NUMBER NL
+   id=playerId COLON t=blindType amount=NUMBER NL
    -> ^( POST $t $id $amount) 
    ;
 
 playerAction: 
-   id=playerId ':' act=action NL 
+   id=playerId COLON act=action NL 
    -> ^( ACTION $id $act )
    ;
     
-handType: ( TOKEN | ',') + ;
+handType: ( TEXT | COMMA) + ;
     
 betSummary: 
-     'Uncalled bet' '(' amount=NUMBER ')' 'returned to' id=playerId NL -> ^(RETURN $id $amount )
-   | id=playerId 'collected' amount=NUMBER 'from pot' NL -> ^(COLLECT $id $amount)
-   | id=playerId ':' 
-    ( 'shows' deal=dealtCards '(' handType ')' -> ^(SHOW $id $deal )
-    | 'mucks hand'
-    | 'doesn\'t show hand') NL
+     UNCALLED BO amount=NUMBER BC RETURNEDTO id=playerId NL -> ^(RETURN $id $amount )
+   | id=playerId COLLECTED amount=NUMBER FROMPOT NL -> ^(COLLECT $id $amount)
+   | id=playerId COLON 
+    ( SHOWS deal=dealtCards BO handType BC -> ^(SHOW $id $deal )
+    | MUCKS
+    | NOSHOW) NL
    ; 
 
 holeAction: 
-   '*** HOLE CARDS ***' NL 'Dealt to' id=playerId deal=dealtCards NL playerAction+ betSummary* 
+   HOLECARDS NL DEALTTO id=playerId deal=dealtCards NL playerAction+ betSummary* 
    -> ^( DEAL $id $deal playerAction+ betSummary*  )
    ;
 
-flopAction: '*** FLOP ***' deal=dealtCards NL playerAction+ betSummary*
+flopAction: FLOP deal=dealtCards NL playerAction+ betSummary*
    -> ^( FLOP $deal playerAction+ betSummary* )
    ;
 
-turnAction: '*** TURN ***' dealtCards deal=dealtCards NL playerAction+ betSummary*  
+turnAction: TURN dealtCards deal=dealtCards NL playerAction+ betSummary*  
    -> ^( TURN $deal playerAction+ betSummary*  )
    ;
 
-riverAction: '*** RIVER ***' dealtCards deal=dealtCards NL playerAction+ betSummary*
+riverAction: RIVER dealtCards deal=dealtCards NL playerAction+ betSummary*
    -> ^( RIVER $deal playerAction+ betSummary*  )
    ;
 
-showdownAction: '*** SHOW DOWN ***' NL betSummary+
+showdownAction: SHOWDOWN NL betSummary+
    -> ^( SHOWDOWN betSummary+ )
    ;
   
 playerSummary: 
-  'Seat' NUMBER ':' playerId  
-  ('(button)' | '(small blind)' | '(big blind)' )?  
-  ( 'folded before Flop'
-  | 'folded on the Flop'
-  | 'folded on the Turn'
-  | 'folded on the River' '(didn\'t bet)'?
-  | 'collected' '('NUMBER ')'
-  | 'mucked' dealtCards 
-  | 'showed' dealtCards 'and' 'won' '(' NUMBER ')' 'with' handType 
+  SEAT NUMBER COLON playerId  
+  (BO BUTTON BC | BO SMALLBLIND BC | BO BIGBLIND BC )?  
+  ( FOLDEDBF  (BO NOBET BC)?
+  | FOLDEDONFL (BO NOBET BC)?
+  | FOLDEDONT (BO NOBET BC)?
+  | FOLDRIVER (BO NOBET BC)?
+  | COLLECTED BO NUMBER BC
+  | MUCKED dealtCards 
+  | SHOWED dealtCards ANDWON BO NUMBER BC WITH handType 
   )
   ;
   
 gameSummary:
-   '*** SUMMARY ***' NL 'Total pot' total=NUMBER '|' 'Rake' rake=NUMBER (NL 'Board' dealtCards)? (NL playerSummary)+ 
+   SUMMARY NL TOTALPOT total=NUMBER PIPE RAKE rake=NUMBER (NL BOARD dealtCards)? (NL playerSummary)+ 
    -> ^( SUMMARY $total $rake )
    ;
+
+   
