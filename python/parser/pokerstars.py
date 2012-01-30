@@ -177,7 +177,7 @@ class PokerStarsHandParser(parser.HandParser):
         try:
             p = self.alternative( playerSet )
             self.text(' collected ')
-            hand.players[p].win = self.number()
+            hand.players[p].win = Money( self.number() )
             self.text(' from pot\n')
         finally:
             pass
@@ -231,7 +231,7 @@ class PokerStarsHandParser(parser.HandParser):
                 act.action = Action.Call
             else:
                 act.action = Action.Bet
-            act.bet = self.number()
+            act.bet = Money( self.number() )
             return act
         
         if txt == 'raises':
@@ -239,7 +239,7 @@ class PokerStarsHandParser(parser.HandParser):
             self.number()
             self.text(' to ')
             act.action = Action.Raise
-            act.bet = self.number()
+            act.bet = Money( self.number() ) 
             
         raise Exception( 'Unexpected action !!')
         
@@ -261,6 +261,12 @@ class PokerStarsHandParser(parser.HandParser):
     def readInitialStacks(self,hand):
         for i in range( hand.numOfSeats ):
             self.text('Seat ' + str(i+1) + ': ')
+            
+            # Since any character seems to be acceptable in a 
+            # player id we scan forward to the end of the line,
+            # then look backwards to identify the id.
+            # 
+            # [we are assuming that \n is invalid in an id]
             
             # look ahead till the in chips text
             txt = self.lookaheadTill('\n')
