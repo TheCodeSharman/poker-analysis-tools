@@ -4,9 +4,6 @@
 // This is an antlr3 grammar to build a AST from a PokerStars 
 // history file.
 //
-// We use a combined grammar here because the complexity doesn't
-// justify splitting the grammar into multiple files.
-//
 grammar PokerStars;
 
 options {
@@ -27,7 +24,6 @@ tokens {
   BUTTON;
   POST;
   DEAL;
-
   FOLD;
   BET;
   RAISE;
@@ -42,9 +38,18 @@ tokens {
   BLINDS;
 }
 
-
 @lexer::members {
-    inPlayerId = 0
+    inPlayerId = False
+    numChars = 0
+    playerIds = {}
+    
+    # Work around bug in Python code generator
+    class SEATANDCHIPS_return:
+       pass;
+       
+    # Keep track of player id 
+    def addPlayerId( self, p ):
+      self.playerIds[p] = p
 }
 
    
@@ -64,85 +69,111 @@ tokens {
 
 
 fragment DIGIT: '0'..'9' ;
-fragment ALPHANUM: 'a'..'z' | 'A'..'Z' | DIGIT;
+fragment ALPHANUM: 'a'..'z' | 'A'..'Z' | DIGIT | '#' | ':';
+fragment ANY: . ;
 
-TOURNAMENT: 'Tournament' ;
-POKERSTARSGAME: 'PokerStars Game' ;
-SEAT: 'Seat' ;
-COMMA: ',' ;
-COLON: ':' ;
-DASH: '-' ;
-HASH: '#' ;
-PIPE: '|' ;
-PERIOD: '.' ;
-QUOT: '\'' ;
-PLUS: '+' ;
-BO: '(' ;
-BC: ')' ;
-INCHIPS: 'in chips' ;
-FOLDS: 'folds' ;
-BETS: 'bets' ;
-RAISES: 'raises' ;
-CALLS: 'calls' ;
-CHECKS: 'checks' ;
-TO: 'to' ;
-LEVEL: 'Level';
-SBO: '[' ;
-SBC: ']' ;
-DOLLARS: '$' ;
-SLASH: '/' ;
-HOLDEMNL: 'Hold\'em No Limit';
-AEST: 'AEST' ;
-ET: 'ET' ;
-USD: 'USD' ;
-AUD: 'AUD' ;
-NINEMAX: '9-max';
-SIXMAX: '6-max' ;
-NUMERAL: 'I' | 'II' | 'III' | 'IV' | 'V' | 'VI' | 'VII' | 'VIII' | 'VIIII' 
-  | 'X' | 'XI' | 'XII' | 'XIII' | 'XIIII' | 'XV' | 'XVI' | 'XVII' | 'XVIII'
-  | 'XVIIII' | 'XX' | 'XXI' | 'XXII' | 'XXIII' | 'XXIIII' | 'XXV' | 'XXVI' ;
-POSTS: 'posts' ;
-ISBUTTON: 'is the button' ;
-TABLE: 'Table' ;
-UNCALLED: 'Uncalled bet' ;
-RETURNEDTO: 'returned to' ;
-COLLECTED: 'collected' ; 
-FROMPOT: 'from pot' ;
-SHOWS: 'shows' ;
-MUCKS: 'mucks hand' ;
-NOSHOW: 'doesn\'t show hand' ;
-DEALTTO: 'Dealt to' ;
-HOLECARDS: '*** HOLE CARDS ***' ;
-FLOP: '*** FLOP ***' ;
-TURN: '*** TURN ***' ;
-RIVER: '*** RIVER ***' ;
-SHOWDOWN: '*** SHOW DOWN ***' ;
-SUMMARY: '*** SUMMARY ***' ;
-BUTTON: 'button';
-SMALLBLIND: 'small blind' ;
-BIGBLIND: 'big blind' ;
-FOLDEDBF: 'folded before Flop' ;
-FOLDEDONFL: 'folded on the Flop';
-FOLDEDONT: 'folded on the Turn';
-FOLDRIVER: 'folded on the River' ;
-NOBET: 'didn\'t bet' ;
-TOTALPOT: 'Total pot' ;
-MUCKED: 'mucked' ;
-SHOWED: 'showed' ;
-ANDWON: 'and won' ;
-WITH: 'with' ;
-RAKE: 'Rake';
-BOARD: 'Board' ;
+PLAYERID
+@init {  
+  num = 0 
+  partial = "" 
+}
+ : 
+   {self.inPlayerId}?=> '\n' (char='\u0020'..'\ufffd' {
+            num = num + 1
+            if num > 12:
+              self.inPlayerId=False # we should signal failure here because the player id is unknown
+            partial += unichr($char)
+            #if ( self.playerIds[partial] ):
+            #  self.inPlayerId=False
+       } )+ ;
 
-WHITESPACE: ' '+ { $channel = HIDDEN; } ;
-NL: ( '\n' | '\r' )+ ;
+TOURNAMENT: {not self.inPlayerId}?=>'Tournament' ;
+POKERSTARSGAME: {not self.inPlayerId}?=>'PokerStars Game' ;
+COMMA: {not self.inPlayerId}?=>',' ;
+COLON: {not self.inPlayerId}?=>':' ;
+DASH: {not self.inPlayerId}?=>'-' ;
+HASH: {not self.inPlayerId}?=>'#' ;
+PIPE: {not self.inPlayerId}?=>'|' ;
+PERIOD: {not self.inPlayerId}?=>'.' ;
+QUOT: {not self.inPlayerId}?=>'\'' ;
+PLUS: {not self.inPlayerId}?=>'+' ;
+BO: {not self.inPlayerId}?=>'(' ;
+BC: {not self.inPlayerId}?=>')' ;
+FOLDS: {not self.inPlayerId}?=>'folds' ;
+BETS: {not self.inPlayerId}?=>'bets' ;
+RAISES: {not self.inPlayerId}?=>'raises' ;
+CALLS: {not self.inPlayerId}?=>'calls' ;
+CHECKS: {not self.inPlayerId}?=>'checks' ;
+TO: {not self.inPlayerId}?=>'to' ;
+LEVEL: {not self.inPlayerId}?=>'Level';
+SBO: {not self.inPlayerId}?=>'[' ;
+SBC: {not self.inPlayerId}?=>']' ;
+DOLLARS: {not self.inPlayerId}?=>'$' ;
+SLASH: {not self.inPlayerId}?=>'/' ;
+HOLDEMNL: {not self.inPlayerId}?=>'Hold\'em No Limit';
+AEST: {not self.inPlayerId}?=>'AEST' ;
+ET: {not self.inPlayerId}?=>'ET' ;
+USD: {not self.inPlayerId}?=>'USD' ;
+AUD: {not self.inPlayerId}?=>'AUD' ;
+NINEMAX: {not self.inPlayerId}?=>'9-max';
+SIXMAX: {not self.inPlayerId}?=>'6-max' ;
+NUMERAL:{not self.inPlayerId}?=> ('I' | 'V' | 'X' )+ ;
+POSTS: {not self.inPlayerId}?=>'posts' ;
+ISBUTTON: {not self.inPlayerId}?=>'is the button' ;
+TABLE: {not self.inPlayerId}?=>'Table' ;
+UNCALLED: {not self.inPlayerId}?=>'Uncalled bet' ;
+RETURNEDTO: {not self.inPlayerId}?=>'returned to' ;
+COLLECTED: {not self.inPlayerId}?=>'collected' ; 
+FROMPOT: {not self.inPlayerId}?=>'from pot' ;
+SHOWS: {not self.inPlayerId}?=>'shows' ;
+MUCKS: {not self.inPlayerId}?=>'mucks hand' ;
+NOSHOW: {not self.inPlayerId}?=>'doesn\'t show hand' ;
+DEALTTO: {not self.inPlayerId}?=>'Dealt to' ;
+HOLECARDS: {not self.inPlayerId}?=>'*** HOLE CARDS ***' { self.inPlayerId = True} ;
+FLOP: {not self.inPlayerId}?=>'*** FLOP ***' ;
+TURN: {not self.inPlayerId}?=>'*** TURN ***' ;
+RIVER: {not self.inPlayerId}?=>'*** RIVER ***' ;
+SHOWDOWN: {not self.inPlayerId}?=>'*** SHOW DOWN ***' ;
+SUMMARY: {not self.inPlayerId}?=>'*** SUMMARY ***' ;
+BUTTON: {not self.inPlayerId}?=>'button';
+SMALLBLIND: {not self.inPlayerId}?=>'small blind' ;
+BIGBLIND: {not self.inPlayerId}?=>'big blind' ;
+FOLDEDBF: {not self.inPlayerId}?=>'folded before Flop' ;
+FOLDEDONFL: {not self.inPlayerId}?=>'folded on the Flop';
+FOLDEDONT: {not self.inPlayerId}?=>'folded on the Turn';
+FOLDRIVER: {not self.inPlayerId}?=>'folded on the River' ;
+NOBET: {not self.inPlayerId}?=>'didn\'t bet' ;
+TOTALPOT: {not self.inPlayerId}?=>'Total pot' ;
+MUCKED: {not self.inPlayerId}?=>'mucked' ;
+SHOWED: {not self.inPlayerId}?=>'showed' ;
+ANDWON: {not self.inPlayerId}?=>'and won' ;
+WITH: {not self.inPlayerId}?=>'with' ;
+RAKE: {not self.inPlayerId}?=>'Rake';
+BOARD: {not self.inPlayerId}?=>'Board' ;
 
-NUMBER: DIGIT+ ;
+WHITESPACE: {not self.inPlayerId}?=>' '+ { $channel = HIDDEN; } ;
+NL: {not self.inPlayerId}?=>( '\n' | '\r' )+ ;
 
-TEXT: ALPHANUM+ ;
+SEATANDCHIPS returns [playerId, stack, seatNum]: {not self.inPlayerId}?=>'\nSeat ' snum+=DIGIT+ ':' (options {greedy=false;} : id+=('\u0020'..'\ufffd' )+ ) ' (' chips+=DIGIT+ ' in chips)' 
+  {
+    $playerId = $id
+    $stack = $chips
+    $seatNum = $snum
+    self.addPlayerId( $id )
+  }
+  ;
 
-ID: '#' NUMBER ;
-//PLAYERID: {self.inPlayerId}?=> ('\u0020'..'\ufffd')+ ;
+SEAT: {not self.inPlayerId}?=>'Seat' ;
+
+NUMBER: {not self.inPlayerId}?=>DIGIT+ ;
+ID: {not self.inPlayerId}?=>'#' NUMBER ;
+TEXT: {not self.inPlayerId}?=>ALPHANUM+ ;
+
+
+
+/*
+maximum payer id length = 12
+*/
 
 
 // Parser specs
@@ -179,7 +210,7 @@ money: DOLLARS! NUMBER PERIOD! NUMBER ;
 tableId: QUOT! NUMBER NUMBER QUOT! ;
 fees: money PLUS! money currency ;
 
-playerId: TEXT+  ;
+playerId :  PLAYERID ;
 
 dealtCards: SBO TEXT+ SBC -> ^(CARDS TEXT+ ) ; // We parse the card details in a subsequent phase to make it easier
 levelDetails: LEVEL! levelNum! BO! NUMBER SLASH! NUMBER BC! ;
@@ -193,7 +224,7 @@ action:
   | CHECKS -> CHECK
   ;
 
-player: SEAT seat=NUMBER COLON id=playerId BO stack=NUMBER INCHIPS BC NL -> ^( PLAYER $seat $id $stack ) ; 
+player: s=SEATANDCHIPS NL -> ^( PLAYER $s ) ; 
 
 heading: POKERSTARSGAME id=ID COLON TOURNAMENT tid=ID COMMA f=fees t=type DASH lvl=levelDetails DASH dt=dateTime SBO dtg=dateTime SBC  NL
    -> ^(INFO $id $tid $f $t $lvl $dt $dtg )
