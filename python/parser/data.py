@@ -61,10 +61,17 @@ class Hand(object):
         for c in cardList:
             self.players[c[0]].startingHand = c[1]
             
-    def addActions(self, betRound, actionList ):
-        for a in actionList:
-            a[1].player = self.players[ a[0] ]
-            betRound.actions.append( a[1] )
+    def addBetRound(self, betRound, actionList ):
+        # add the actions
+        betRound.addActions( self, actionList )
+        # calculate liveness by removing any players that folded
+        if len(self.rounds) > 0:
+            betRound.livePlayers = self.rounds[-1].livePlayers.copy()
+        for a in betRound.actions:
+            if a.action == Action.Fold:
+                betRound.livePlayers = betRound.livePlayers.difference([a.player.name])
+        # append the new bet round
+        self.rounds.append(betRound)
     
     def __repr__(self):
         return ( "Hand( "
@@ -75,9 +82,7 @@ class Hand(object):
             + ", ante = " + str(self.ante)
             + ", rake = " + str(self.rake)
             + ", board = " + str(self.board) + " )")
-    
-        
-        
+
 class Player(object):
     '''Represents a player'''
     def __init__(self, name):
@@ -93,7 +98,6 @@ class Player(object):
                  + ", win = " + str(self.win)
                  + ", startingHand = " + str(self.startingHand) 
                  + ", initialStack  = " + str(self.initialStack) + "]" )
-
 
 class Card(object):
     '''A card with both value and suit'''
@@ -112,14 +116,22 @@ class BettingRound(object):
         self.cards = None
         self.actions = []          # Action[]
         self.rake = None           # Money
+        self.livePlayers = None    # set of player id strings
         
     def __repr__(self):
         return ( "BettingRound( pot = " + str(self.pot)
                  + ", rake = " + str( self.rake )
                  + ", cards = " + str(self.cards)
-                 + ", actions = " + str(self.actions) + ")" )
+                 + ", actions = " + str(self.actions) 
+                 + ", livePlayers = " + str(self.livePlayers) + " )" )
         
-        
+    def addActions(self, hand, actionList ):
+        # create action objects
+        for a in actionList:
+            a[1].player = hand.players[ a[0] ]
+            self.actions.append( a[1] )
+        self.livePlayers = set( hand.players.keys() )
+
 class Action(object):
     '''The action a player takes'''
     Raise, Bet, ReRaise, Call, Fold, Check, Post = range(7)

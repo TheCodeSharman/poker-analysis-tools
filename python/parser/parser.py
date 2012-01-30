@@ -11,6 +11,3 @@ class HandParser(object):
     
     def parseHand(self, file_name):
         return NotImplemented # should return a Hand
-
-    
-        
