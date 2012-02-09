@@ -1,11 +1,27 @@
 # see http://www.w3.org/TR/SVG/
 #
-# This is a some what incomplete and minimalistic SVG parser
-# TODO: Fill in the details and make it complete
+# This is a somewhat incomplete and minimalistic SVG parser
+# that can render to a pycairo context which should be adequate
+# for most needs.
+#
+# It purpose is to create a way of rendering vector graphics easily
+# in Python rather than being a general purposes SVG renderer.
+#
+# i.e. the SVG files are tailored to work with this parser.
+#
+# TODO: No reason why this can't be made a compliant SVG
+# implementation, just needs the effort :-)
+#
+# Implementation is via xml.etree.ElementTree and the
+# pyparsing declarative EBNF based string parser.
+#
 
 import xml.etree.ElementTree as ET
 from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
 import math
+
+# FIXME: The number rule might be more efficiently implemented as a regex.
+# performance testing needed against both implementations.
 
 commaWsp = Optional(',').suppress()
 
