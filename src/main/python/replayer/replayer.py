@@ -1,12 +1,42 @@
 import wx
+import wx.lib.wxcairo
+import cairo
+import svg.parse
 
+class PokerTable(wx.Window):
+    def __init__(self, parent):
+        wx.Window.__init__(self, parent)
+        self.tableSvg = svg.parse.loadSvgFile("resources/table.svg")
+        print self.tableSvg
+        self.InitBuffer()
+        self.Bind(wx.EVT_SIZE, self.OnSize) 
+        self.Bind(wx.EVT_PAINT, self.OnPaint)
+        
+    def InitBuffer(self):
+        w, h = self.GetClientSize()
+        self.buffer = wx.EmptyBitmap(w,h)
+        dc = wx.BufferedDC(wx.ClientDC(self), self.buffer)
+        self.DrawTable(dc)
+        
+    def DrawTable(self,dc):
+        context = wx.lib.wxcairo.ContextFromDC(dc)
+        self.tableSvg.renderToCairo(context)
+        
+    def OnPaint(self, evt):
+        dc = wx.BufferedPaintDC(self, self.buffer)
+        
+    def OnSize(self, evt):
+        self.InitBuffer()
+
+        
 class Replayer(wx.Frame):
     """ We simply derive a new class of Frame. """
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, title=title, size=(200, 100))
-        self.control = wx.TextCtrl(self, style=wx.TE_MULTILINE)
+        wx.Frame.__init__(self, parent, title=title, size=(640, 400))
+        self.control = PokerTable(self)
         self.Show(True)
-    
+        
+
 
 if __name__ == '__main__':
     app = wx.App(False)

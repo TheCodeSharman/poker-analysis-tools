@@ -4,7 +4,8 @@
 # TODO: Fill in the details and make it complete
 
 import xml.etree.ElementTree as ET
-from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore, Regex #@UnresolvedImport
+from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
+import math
 
 commaWsp = Optional(',').suppress()
 
@@ -112,7 +113,7 @@ transform = matrix | translate | scale | rotate | skewX | skewY
 
 transformList = transform + ZeroOrMore( commaWsp + transform )
 
-style = Dict( ZeroOrMore( Group( Word( srange('[a-zA-Z\-]') ) + Suppress(':') + Word( srange('[0-9a-zA-z\-\'()]') )  + Suppress(';') ) ) )
+style = Dict( ZeroOrMore( Group( Word( srange('[a-zA-Z-]') ) + Suppress(':') + Word( srange('[0-9a-zA-z#.\'()]') )  + Optional(Suppress(';') )) ) )
 
 pathCommand = Group( oneOf('M m')('command') + OneOrMore( number('x') + commaWsp + number('y') ) \
     |  oneOf( 'Z z' )('command') \
@@ -187,6 +188,10 @@ class SvgNode(object):
     
     def __repr__(self):
         return self.dump(0)
+    
+    def renderToCairo(self, cx):
+        for c in self.children:
+            c.renderToCairo(cx)
 
 class SvgRect(SvgNode):
     def __init__(self,root):
@@ -198,6 +203,49 @@ class SvgRect(SvgNode):
         self.x = self.parseAttr( number, root, 'x')
         self.y = self.parseAttr( number, root, 'y')
         self.style = self.parseAttr( style, root, 'style')
+        if self.rx is None:
+            self.rx = 0.0
+        if self.ry is None:
+            self.ry = 0.0
+        
+    # Cairo doesn't have a native ellipse arc
+    # so we have to construct one using transforms
+    def renderEllArc(self,cx,w,h,s,e):
+        ( sx, sy ) = cx.get_current_point()
+        cx.save()
+        cx.new_sub_path()
+        cx.translate(sx,sy)
+        cx.scale(1.0,-h/w)
+        cx.arc(0.,0.,w,s,e)
+        cx.restore()
+
+    def renderToCairo(self, cx):
+        if self.rx == 0.0 and self.ry == 0.0:
+            # Simple rectangle
+            cx.rectangle(self.x,self.y,self.width,self.height)
+            cx.stroke()
+        else:
+            # Rounded rectangle needs to be constructed from
+            # lines and ellipse arcs.
+            cx.move_to( self.x + self.rx, self.y)
+            cx.line_to( self.x + self.width - self.rx, self.y )
+            cx.rel_move_to( 0, self.ry )
+            self.renderEllArc( cx, self.rx, self.ry, 0.0, math.pi/2.0 )
+            cx.rel_move_to( self.rx, self.ry )
+            cx.rel_line_to( 0, self.height - 2*self.ry )
+            cx.rel_move_to( -self.rx, 0 )
+            self.renderEllArc( cx, self.rx, self.ry, 3*math.pi/2.0, 0.0  )
+            cx.rel_move_to( -self.rx, self.ry )
+            cx.rel_line_to( -(self.width - 2*self.rx), 0 )
+            cx.rel_move_to( 0, -self.ry)
+            self.renderEllArc( cx, self.rx, self.ry, math.pi, 3*math.pi/2.0 )
+            cx.rel_move_to( -self.rx, -self.ry )
+            cx.rel_line_to( 0, -(self.height - 2*self.ry))
+            cx.rel_move_to( self.rx, 0 )
+            self.renderEllArc(  cx, self.rx, self.ry, math.pi/2.0, math.pi )
+            cx.rel_move_to( self.rx, -self.ry )
+            cx.close_path()
+            cx.stroke()
     
     def dump(self,indent):
         return indent * ' ' + 'Rect %s width=%s height=%s rx=%s ry=%s x=%s y=%s style=%s\n'%(self.id, self.width, self.height, self.rx, self.ry, self.x, self.y, self.style)  + self.dumpChildren(indent+1)
@@ -236,3 +284,6 @@ class Svg(SvgNode):
         return indent * ' ' + 'Svg %s\n'%self.id + self.dumpChildren(indent+1)
 
 SvgNode.registerTagParser('{http://www.w3.org/2000/svg}svg', Svg)
+
+def loadSvgFile(fileName):
+    return Svg( ET.parse(fileName).getroot() )
