@@ -8,8 +8,6 @@ class SvgRenderer(object):
         pass
     def setStyle(self, style):
         pass
-    def renderEllArc(self,w,h,s,e):
-        pass
     def rectangle(self, x, y, width, height):
         pass
     def roundedRectangle(self, x, y, width, height, rx, ry ):
@@ -81,7 +79,9 @@ class SvgCairoRenderer(SvgRenderer):
         elif self.hasFill():
             self.doFill( False )
     
-    def renderEllArc(self,sx,sy,w,h,s,e):
+    # Cairo doesn't have a native elliptical arc, but it's easy to 
+    # construct one:
+    def _ellipticalArc(self,sx,sy,w,h,s,e):
         self._ctx.scale(1.0,-h/w)
         self._ctx.arc_negative(sx,sy*-w/h,w,s,e)
         self._ctx.scale(1.0,-w/h)
@@ -93,11 +93,11 @@ class SvgCairoRenderer(SvgRenderer):
         
     def roundedRectangle(self, x, y, width, height, rx, ry ):
         # Rounded rectangle needs to be constructed from
-        # lines and ellipse arcs.
+        # lines and elliptical arcs.
         self._ctx.move_to( x + rx, y)
-        self.renderEllArc( x + width - rx, y + ry, rx, ry, math.pi/2.0, 0.0 )
-        self.renderEllArc( x + width - rx, y + height - ry, rx, ry, 0.0, 3*math.pi/2.0  )
-        self.renderEllArc( x + rx, y + height - ry, rx, ry, 3*math.pi/2.0, math.pi )
-        self.renderEllArc( x + rx, y + ry, rx, ry, math.pi, math.pi/2.0 )
+        self._ellipticalArc( x + width - rx, y + ry, rx, ry, math.pi/2.0, 0.0 )
+        self._ellipticalArc( x + width - rx, y + height - ry, rx, ry, 0.0, 3*math.pi/2.0  )
+        self._ellipticalArc( x + rx, y + height - ry, rx, ry, 3*math.pi/2.0, math.pi )
+        self._ellipticalArc( x + rx, y + ry, rx, ry, math.pi, math.pi/2.0 )
         self._ctx.close_path()
         self.doRender()
