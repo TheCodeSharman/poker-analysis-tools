@@ -1,6 +1,6 @@
 import unittest
 
-from svg.parse import *
+from gui.svg.svgreader import *
 
 class Test(unittest.TestCase):
     def testNumber1(self):

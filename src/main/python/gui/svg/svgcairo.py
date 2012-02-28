@@ -1,29 +1,6 @@
 import math
 import cairo
-
-class SvgRenderer(object):
-    def enterGroup(self,matrix):
-        pass
-    def exitGroup(self):
-        pass
-    def setStyle(self, style):
-        pass
-    def rectangle(self, x, y, width, height):
-        pass
-    def roundedRectangle(self, x, y, width, height, rx, ry ):
-        pass
-    def curve(self,rel,x1,y1,x2,y2,x3,y3):
-        pass
-    def line(self,rel,x,y):
-        pass
-    def move(self,rel,x,y):
-        pass
-    def closePath(self):
-        pass
-    def getCurrentPoint(self):
-        pass
-    def render(self):
-        pass
+from svgreader import SvgRenderer
 
 class SvgCairoRenderer(SvgRenderer):
     

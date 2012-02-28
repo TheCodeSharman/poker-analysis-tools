@@ -1,10 +1,10 @@
 
-import parser
+import handparser
 import scanner
 
-from pokergame import *
+from pokergame import Money, Hand, Player, Card, BettingRound, Action
 
-class PokerStarsHandParser(scanner.Scanner,parser.HandParser):
+class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
 
     @staticmethod   
     def canParseFile( cls, fileName ):
