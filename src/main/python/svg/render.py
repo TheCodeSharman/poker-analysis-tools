@@ -81,10 +81,7 @@ class SvgCairoRenderer(SvgRenderer):
         elif self.hasFill():
             self.doFill( False )
     
-    def renderEllArcRel(self,sx_rel,sy_rel,w,h,s,e):
-        ( sx, sy ) = self._ctx.get_current_point()
-        sx = sx + sx_rel
-        sy = sy + sy_rel
+    def renderEllArc(self,sx,sy,w,h,s,e):
         self._ctx.scale(1.0,-h/w)
         self._ctx.arc_negative(sx,sy*-w/h,w,s,e)
         self._ctx.scale(1.0,-w/h)
@@ -98,9 +95,9 @@ class SvgCairoRenderer(SvgRenderer):
         # Rounded rectangle needs to be constructed from
         # lines and ellipse arcs.
         self._ctx.move_to( x + rx, y)
-        self.renderEllArcRel( width - 2*rx, ry, rx, ry, math.pi/2.0, 0.0 )
-        self.renderEllArcRel( -rx, height - 2*ry, rx, ry, 0.0, 3*math.pi/2.0  )
-        self.renderEllArcRel( -(width - 2*rx), -ry, rx, ry, 3*math.pi/2.0, math.pi )
-        self.renderEllArcRel(  rx, -(height - 2*ry), rx, ry, math.pi, math.pi/2.0 )
+        self.renderEllArc( x + width - rx, y + ry, rx, ry, math.pi/2.0, 0.0 )
+        self.renderEllArc( x + width - rx, y + height - ry, rx, ry, 0.0, 3*math.pi/2.0  )
+        self.renderEllArc( x + rx, y + height - ry, rx, ry, 3*math.pi/2.0, math.pi )
+        self.renderEllArc( x + rx, y + ry, rx, ry, math.pi, math.pi/2.0 )
         self._ctx.close_path()
         self.doRender()
