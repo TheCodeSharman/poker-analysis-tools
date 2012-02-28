@@ -1,78 +1,83 @@
-# see http://www.w3.org/TR/SVG/
-#
-# This is a somewhat incomplete and minimalistic SVG parser
-# that can render to a pycairo context which should be adequate
-# for most needs.
-#
-# It purpose is to create a way of rendering vector graphics easily
-# in Python rather than being a general purposes SVG renderer.
-#
-# i.e. the SVG files are tailored to work with this parser.
-#
-# TODO: No reason why this can't be made a compliant SVG
-# implementation, just needs the effort :-)
-#
-# Implementation is via xml.etree.ElementTree and the
-# pyparsing declarative EBNF based string parser.
-#
+'''
+This is a somewhat incomplete and minimalistic SVG parser
+that can render to a pycairo context which should be adequate
+for most needs.
 
+It purpose is to create a way of rendering vector graphics easily
+in Python rather than being a general purposes SVG renderer.
+
+i.e. the SVG files are tailored to work with this parser.
+
+TODO: No reason why this can't be made a compliant SVG
+implementation, just needs the effort :-)
+
+Implementation is via xml.etree.ElementTree and the
+pyparsing declarative EBNF based string parser.
+ 
+see also http://www.w3.org/TR/SVG/
+'''
 import xml.etree.ElementTree as ET
 import math
-import itertools
 
-
-from pyparsing import Word, ParserElement, Optional, Regex, CaselessLiteral, oneOf, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
-
-
+from pyparsing import Word, ParserElement, Optional, nums, Combine, CaselessLiteral, oneOf, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
 ParserElement.enablePackrat()
 
-# This class describes the rendering interface
+'''Load an SVG file returns an SvgNode '''
+def loadSvgFile(fileName):
+    return Svg( ET.parse(fileName).getroot() )
+
+'''Implement this interface to the render a SVG, see SvgCairoRenderer for example'''
 class SvgRenderer(object):
+    
     def enterGroup(self,matrix):
         pass
+    
     def exitGroup(self):
         pass
+    
     def setStyle(self, style):
         pass
+    
     def rectangle(self, x, y, width, height):
         pass
+    
     def roundedRectangle(self, x, y, width, height, rx, ry ):
         pass
+    
     def curve(self,rel,x1,y1,x2,y2,x3,y3):
         pass
+    
     def line(self,rel,x,y):
         pass
+    
     def move(self,rel,x,y):
         pass
+    
     def closePath(self):
         pass
+    
     def getCurrentPoint(self):
         pass
+    
     def render(self):
         pass
 
-# FIXME: The number rule might be more efficiently implemented as a regex.
-# performance testing needed against both implementations.
-
+# What follows is a mixture of etree, pyparsing and some basic string function based parsing.
+# I've avoided using regular expressions because I find the code, whislt terse is very
+# difficult to maintain. Pyparsing seems to do a good job of keeping code clean.
 commaWsp = Optional(',').suppress()
+digitSequence = Word( nums )
+sign = oneOf( '+ -' )
+integerConstant = digitSequence
+fractionalConstant = digitSequence + Optional( '.' +  digitSequence ) | '.' +  digitSequence 
+exponent = oneOf( 'e E' ) + Optional( sign ) + digitSequence
 
-#digitSequence = Word( nums )
-
-#sign = oneOf( '+ -' )
-
-#integerConstant = digitSequence
-
-#fractionalConstant = digitSequence + Optional( '.' +  digitSequence ) | '.' +  digitSequence 
-
-#exponent = oneOf( 'e E' ) + Optional( sign ) + digitSequence
-
-#number = Combine( Optional( sign ) + fractionalConstant + Optional( exponent ) )
-number = Regex('[+-]? *(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?')
+number = Combine( Optional( sign ) + fractionalConstant + Optional( exponent ) )
 number.setParseAction( lambda t: float( t[0]))
 
 angle = number + ( CaselessLiteral('deg') | CaselessLiteral('grad') | CaselessLiteral('rad') )
 
-
+''' Represents a matrix '''
 class SvgMatrix(object):
     def __init__(self, a, b, c, d, e, f ):
         self.a = a
@@ -143,13 +148,12 @@ transformList = transform + ZeroOrMore( commaWsp + transform )
 
 style = Dict( ZeroOrMore( Group( Word( srange('[a-zA-Z-]') ) + Suppress(':') + Word( srange('[0-9a-zA-z#.\'()-]') )  + Optional(Suppress(';') )) ) )
 
-# parse path command old fashioned way
-def isCommand(s):
-    return s in 'MmZzLlHhVvCcSsQqTtAa'
-
+'''pyparsing is nice to read but this function speeds up the parsing by factor of 70 times!!'''
 def parsePathCommand(s):
     res = []
     els = s.split()
+    def isCommand(s):
+        return s in 'MmZzLlHhVvCcSsQqTtAa'
     while len(els) > 0 and isCommand(els[0]):
         cmd = [els[0]]
         els = els[1:]
@@ -161,12 +165,19 @@ def parsePathCommand(s):
         res.append(cmd)
     return res
 
+''' A list of the specific shape elements we currently support'''
 shapeElements = [ 
           '{http://www.w3.org/2000/svg}g',
           '{http://www.w3.org/2000/svg}rect',
           '{http://www.w3.org/2000/svg}path' 
           ]
 
+''' 
+Every node derives from this base class.
+Once a new node has been defined it is registered with the
+base class via registerTagParser this will route the parsing
+appropriately according to declared QName.
+'''
 class SvgNode(object):
     tagParsers = {}
     
@@ -256,10 +267,6 @@ class SvgRect(SvgNode):
 
 SvgNode.registerTagParser('{http://www.w3.org/2000/svg}rect', SvgRect) 
 
-        
-def cluster(lst,n):
-    return zip(*[iter(lst)]*n)
-
 class SvgPath(SvgNode):
     def __init__(self,root):
         super(SvgPath,self).__init__(root)
@@ -270,7 +277,12 @@ class SvgPath(SvgNode):
     def render(self, renderer):
         renderer.enterGroup(self.transform)
         renderer.setStyle( self.style )
+                    
+        def cluster(lst,n):
+                return zip(*[iter(lst)]*n)
+            
         for e in self.d:
+
             cmd = e[0].lower()
             rel = e[0].islower()
 
@@ -303,16 +315,15 @@ class SvgPath(SvgNode):
             elif cmd == 'c':
                 map( lambda (x1, y1, x2, y2, x, y ) : renderer.curve(rel, x1, y1, x2, y2, x, y), cluster(e[1:],6) )
             elif cmd == 's':
-                pass
-            
+                pass            # TODO: Implement this
             # Quadratic bezier
             elif cmd == 'q':
-                pass
+                pass            # TODO: Implement this
             elif cmd == 't':
-                pass
+                pass            # TODO: Implement this
             # Elliptical arc
             elif cmd == 'a':
-                pass
+                pass            # TODO: Implement this
         renderer.render()
         renderer.exitGroup()
         
@@ -346,6 +357,3 @@ class Svg(SvgNode):
         return indent * ' ' + 'Svg %s\n'%self.id + self.dumpChildren(indent+1)
 
 SvgNode.registerTagParser('{http://www.w3.org/2000/svg}svg', Svg)
-
-def loadSvgFile(fileName):
-    return Svg( ET.parse(fileName).getroot() )
