@@ -82,9 +82,9 @@ class SvgCairoRenderer(SvgRenderer):
     # Cairo doesn't have a native elliptical arc, but it's easy to 
     # construct one:
     def _ellipticalArc(self,sx,sy,w,h,s,e):
-        self._ctx.scale(1.0,-h/w)
-        self._ctx.arc_negative(sx,sy*-w/h,w,s,e)
-        self._ctx.scale(1.0,-w/h)
+        self._ctx.scale(1.0,h/w)
+        self._ctx.arc(sx,sy*w/h,w,s,e)
+        self._ctx.scale(1.0,w/h)
         
     def rectangle(self, x, y, width, height):
         # Simple rectangle
@@ -95,9 +95,9 @@ class SvgCairoRenderer(SvgRenderer):
         # Rounded rectangle needs to be constructed from
         # lines and elliptical arcs.
         self._ctx.move_to( x + rx, y)
-        self._ellipticalArc( x + width - rx, y + ry, rx, ry, math.pi/2.0, 0.0 )
-        self._ellipticalArc( x + width - rx, y + height - ry, rx, ry, 0.0, 3*math.pi/2.0  )
-        self._ellipticalArc( x + rx, y + height - ry, rx, ry, 3*math.pi/2.0, math.pi )
+        self._ellipticalArc( x + width - rx, y + ry, rx, ry, 3*math.pi/2, 0 )
+        self._ellipticalArc( x + width - rx, y + height - ry, rx, ry, 0, math.pi/2 )
+        self._ellipticalArc( x + rx, y + height - ry, rx, ry, math.pi/2, math.pi )
         self._ellipticalArc( x + rx, y + ry, rx, ry, math.pi, math.pi/2.0 )
         self._ctx.close_path()
         self.doRender()
