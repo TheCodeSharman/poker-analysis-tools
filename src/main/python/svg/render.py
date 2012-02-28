@@ -12,6 +12,18 @@ class SvgRenderer(object):
         pass
     def roundedRectangle(self, x, y, width, height, rx, ry ):
         pass
+    def curve(self,rel,x1,y1,x2,y2,x3,y3):
+        pass
+    def line(self,rel,x,y):
+        pass
+    def move(self,rel,x,y):
+        pass
+    def closePath(self):
+        pass
+    def getCurrentPoint(self):
+        pass
+    def render(self):
+        pass
 
 class SvgCairoRenderer(SvgRenderer):
     
@@ -49,13 +61,13 @@ class SvgCairoRenderer(SvgRenderer):
             elif name == 'stroke-width':
                     self._strokeWidth = float( value )
     
-    def hasStroke(self):
+    def _hasStroke(self):
         return self._strokeColor != None
     
-    def hasFill(self):
+    def _hasFill(self):
         return self._fillColor != None
     
-    def doStroke(self, preserve):
+    def _doStroke(self, preserve):
         self._ctx.set_source_rgb( self._strokeColor[0], self._strokeColor[1], self._strokeColor[2] )
         self._ctx.set_line_width( self._strokeWidth)
         if preserve:
@@ -63,21 +75,21 @@ class SvgCairoRenderer(SvgRenderer):
         else:
             self._ctx.stroke()
     
-    def doFill(self, preserve):
+    def _doFill(self, preserve):
         self._ctx.set_source_rgb( self._fillColor[0], self._fillColor[1], self._fillColor[2] )
         if preserve:
             self._ctx.fill_preserve()
         else:
             self._ctx.fill()
     
-    def doRender(self):
-        if self.hasStroke() and self.hasFill():
-            self.doStroke( True )
-            self.doFill( False )
-        elif self.hasStroke():
-            self.doStroke( False )
-        elif self.hasFill():
-            self.doFill( False )
+    def render(self):
+        if self._hasStroke() and self._hasFill():
+            self._doStroke( True )
+            self._doFill( False )
+        elif self._hasStroke():
+            self._doStroke( False )
+        elif self._hasFill():
+            self._doFill( False )
     
     # Cairo doesn't have a native elliptical arc, but it's easy to 
     # construct one:
@@ -87,9 +99,7 @@ class SvgCairoRenderer(SvgRenderer):
         self._ctx.scale(1.0,w/h)
         
     def rectangle(self, x, y, width, height):
-        # Simple rectangle
         self._ctx.rectangle(x,y,width,height)
-        self.doRender()
         
     def roundedRectangle(self, x, y, width, height, rx, ry ):
         # Rounded rectangle needs to be constructed from
@@ -100,4 +110,30 @@ class SvgCairoRenderer(SvgRenderer):
         self._ellipticalArc( x + rx, y + height - ry, rx, ry, math.pi/2, math.pi )
         self._ellipticalArc( x + rx, y + ry, rx, ry, math.pi, math.pi/2.0 )
         self._ctx.close_path()
-        self.doRender()
+        
+    def getCurrentPoint(self):
+        return self._ctx.get_current_point()
+    
+    def hasCurrentPoint(self):
+        return self._ctx.has_current_point()
+
+    def move(self, rel, x, y ):
+        if rel and self.hasCurrentPoint():
+            self._ctx.rel_move_to( x, y)
+        else:
+            self._ctx.move_to( x, y )
+    
+    def line(self, rel, x, y):
+        if rel:
+            self._ctx.rel_line_to(x,y)
+        else:
+            self._ctx.line_to(x,y)
+            
+    def closePath(self):
+        self._ctx.close_path()
+
+    def curve(self,rel,x1,y1,x2,y2,x3,y3):
+        if rel:
+            self._ctx.rel_curve_to(x1,y1,x2,y2,x3,y3)
+        else:
+            self._ctx.curve_to(x1,y1,x2,y2,x3,y3)

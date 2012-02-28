@@ -194,6 +194,7 @@ class SvgNode(object):
 class SvgRect(SvgNode):
     def __init__(self,root):
         super(SvgRect,self).__init__(root)
+        self.transform = self.parseAttr(transformList,root,'transform')
         self.width = self.parseAttr( number, root,'width')
         self.height = self.parseAttr( number, root, 'height')
         self.rx = self.parseAttr( number, root, 'rx')
@@ -207,16 +208,23 @@ class SvgRect(SvgNode):
             self.ry = 0.0
 
     def render(self, renderer):
+        renderer.enterGroup(self.transform)
         renderer.setStyle( self.style )
         if self.rx == 0.0 and self.ry == 0.0:
             renderer.rectangle(self.x,self.y,self.width,self.height)
         else:
             renderer.roundedRectangle(self.x,self.y,self.width,self.height,self.rx,self.ry)
+        renderer.render()
+        renderer.exitGroup()
 
     def dump(self,indent):
         return indent * ' ' + 'Rect %s width=%s height=%s rx=%s ry=%s x=%s y=%s style=%s\n'%(self.id, self.width, self.height, self.rx, self.ry, self.x, self.y, self.style)  + self.dumpChildren(indent+1)
 
 SvgNode.registerTagParser('{http://www.w3.org/2000/svg}rect', SvgRect) 
+
+        
+def cluster(lst,n):
+    return zip(*[iter(lst)]*n)
 
 class SvgPath(SvgNode):
     def __init__(self,root):
@@ -224,7 +232,56 @@ class SvgPath(SvgNode):
         self.d = self.parseAttr(path, root,'d')
         self.transform = self.parseAttr(transformList,root,'transform')
         self.style = self.parseAttr(style, root,'style')
-    
+
+    def render(self, renderer):
+        renderer.enterGroup(self.transform)
+        renderer.setStyle( self.style )
+        for e in self.d:
+            cmd = e[0].lower()
+            rel = e[0].islower()
+
+            # Move to command
+            if cmd == 'm':
+                renderer.move( rel, e[1], e[2])
+                map( lambda (x, y) : renderer.line(rel, x, y), cluster(e[3:],2) )
+                
+            # Close path command
+            elif cmd == 'z':
+                renderer.closePath()
+                
+            # Line to commands
+            elif cmd == 'l':
+                map( lambda (x, y) : renderer.line(rel, x, y), cluster(e[1:],2) )
+            elif cmd == 'h':
+                if not rel:
+                    ( cx, cy ) = renderer.getCurrentPoint()
+                    map( lambda x : renderer.line(False, x, cy), e[1:] )
+                else:
+                    map( lambda x : renderer.line(True, x, 0), e[1:] )
+            elif cmd == 'v':
+                if not rel:
+                    ( cx, cy ) = renderer.getCurrentPoint()
+                    map( lambda y : renderer.line(False, cx, y ), e[1:] )
+                else:
+                    map( lambda y : renderer.line(True, 0,y ), e[1:] )
+                    
+            # Cubic bezier
+            elif cmd == 'c':
+                map( lambda (x1, y1, x2, y2, x, y ) : renderer.curve(rel, x1, y1, x2, y2, x, y), cluster(e[1:],6) )
+            elif cmd == 's':
+                pass
+            
+            # Quadratic bezier
+            elif cmd == 'q':
+                pass
+            elif cmd == 't':
+                pass
+            # Elliptical arc
+            elif cmd == 'a':
+                pass
+        renderer.render()
+        renderer.exitGroup()
+        
     def dump(self,indent):
         return indent * ' ' + 'Path %s transform=%s style=%s d=%s\n'%(self.id, self.transform, self.style, self.d) + self.dumpChildren(indent+1)
 
