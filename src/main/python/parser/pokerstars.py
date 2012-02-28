@@ -2,16 +2,10 @@
 import parser
 import scanner
 
-from data import *
+from pokergame import *
 
 class PokerStarsHandParser(scanner.Scanner,parser.HandParser):
-    def __init__(self, fileName ):
-        scanner.Scanner.__init__(self)
-        self.parseFile(fileName)
-        self.site_name = 'PokerStars'
-        self.timezones = ['AEST','ET']
-        self.currencies = ['AUD', 'USD']
-    
+
     @staticmethod   
     def canParseFile( cls, fileName ):
         parser_ = PokerStarsHandParser( fileName )
@@ -21,6 +15,13 @@ class PokerStarsHandParser(scanner.Scanner,parser.HandParser):
         except: # on any exception we assume that this parser can't recognize the file
             return False
         
+    def __init__(self, fileName ):
+        scanner.Scanner.__init__(self)
+        self.parseFile(fileName)
+        self.site_name = 'PokerStars'
+        self.timezones = ['AEST','ET']
+        self.currencies = ['AUD', 'USD']
+
     def parseHand( self ):
         hand = Hand()
         self.readHeader()
