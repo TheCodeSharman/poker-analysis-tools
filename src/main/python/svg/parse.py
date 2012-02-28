@@ -100,7 +100,7 @@ matrix.setParseAction( lambda t : SvgMatrix( t.a, t.b, t.c, t.d, t.e, t.f ) )
 translate = 'translate' + '(' + number('tx') + commaWsp + Optional( number('ty') ) + ')'
 translate.setParseAction( lambda t : SvgTranslate( t.tx, t.ty ) )
 
-scale = 'scale' + '(' + number('sx')  + commaWsp + Optional( number.setName('sy') )  + ')'
+scale = 'scale' + '(' + number('sx')  + commaWsp + Optional( number('sy') )  + ')'
 scale.setParseAction( lambda t : SvgScale( t.sx, t.sy ) )
 
 rotate = 'rotate' + '(' + number('angle') + Optional( commaWsp + number('cx') + commaWsp + number('cy')  ) + ')'

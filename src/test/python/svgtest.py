@@ -1,6 +1,6 @@
 import unittest
 
-from svg.svg import *
+from svg.parse import *
 
 class Test(unittest.TestCase):
     def testNumber1(self):
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     def testTransformTranslate(self):
         self.assertEqual( transform.parseString( "translate( 1.1,2.2 )")[0], SvgTranslate( 1.1, 2.2 ) )
     def testTransformScale(self):
-        self.assertEqual( transform.parseString( "scale( 1.1,2.2 )")[0], SvgScale( 1.1, 2.2 ) )
+        self.assertEqual( transform.parseString( "scale( 1.1, 2.2 )")[0], SvgScale( 1.1, 2.2 ) )
     def testTransformRotate(self):
         self.assertEqual( transform.parseString( "rotate( 130.0,1.1,2.2 )")[0], SvgRotate( 130.0, 1.1, 2.2 ) )
     def testTransformSkewX(self):
@@ -30,8 +30,8 @@ class Test(unittest.TestCase):
         self.assertEqual( transformList.parseString( "skewY( 130.0 ), rotate( 130.0,1.1,2.2 )").asList(), [ SvgSkewY( 130.0 ), SvgRotate( 130.0, 1.1, 2.2 ) ] )
 
     def testPathCommand1(self):
-        self.assertEqual( path.parseString('M 100,200').asList(), [ ['M', 100, 200] ])
+        self.assertEqual( parsePathCommand('M 100,200'), [ ['M', 100, 200] ])
         
     def testPathCommand2(self):
-        self.assertEqual( path.parseString('m -1016.046,25.720671 -10.7642,16.120541 7.1773,18.006272 -18.6578,-5.255841 -14.9071,12.390288 -0.767,-19.36883 -16.3904,-10.348653 18.1838,-6.714754 4.7773,-18.786107 12.0052,15.218884 z').asList(), 
+        self.assertEqual( parsePathCommand('m -1016.046,25.720671 -10.7642,16.120541 7.1773,18.006272 -18.6578,-5.255841 -14.9071,12.390288 -0.767,-19.36883 -16.3904,-10.348653 18.1838,-6.714754 4.7773,-18.786107 12.0052,15.218884 z'), 
                           [ ['m', -1016.046,25.720671, -10.7642,16.120541, 7.1773,18.006272, -18.6578,-5.255841, -14.9071,12.390288, -0.767,-19.36883, -16.3904,-10.348653, 18.1838,-6.714754, 4.7773,-18.786107, 12.0052,15.218884], ['z']])
