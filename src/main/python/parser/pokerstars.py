@@ -1,14 +1,14 @@
 
 import parser
+import scanner
 
 from data import *
 
-class PokerStarsHandParser(parser.HandParser):
+class PokerStarsHandParser(scanner.Scanner,parser.HandParser):
     def __init__(self, fileName ):
+        scanner.Scanner.__init__(self)
+        self.parseFile(fileName)
         self.site_name = 'PokerStars'
-        self.file_ = open( fileName, 'r' )
-        self.isEOF = False
-        self.acc =""
         self.timezones = ['AEST','ET']
         self.currencies = ['AUD', 'USD']
     
@@ -21,46 +21,6 @@ class PokerStarsHandParser(parser.HandParser):
         except: # on any exception we assume that this parser can't recognize the file
             return False
         
-    # Reads a number of characters ahead, only reads them
-    # if they haven't already been read
-    def readAhead(self, size):
-        if size > len(self.acc):
-            txt = self.file_.read( size - len(self.acc) )
-            if len(txt) == 0:
-                self.isEOF = True
-            self.acc += txt
-    
-    def peek(self,size):
-        self.readAhead(size)
-        return self.acc[:size]
-    
-    # Consumes a number of characters from the read ahead buffer
-    def consume(self, size):
-        txt = self.acc[0:size]
-        self.acc = self.acc[size:]
-        return txt
-        
-            
-    def alternative( self, alts ):
-        for alt in alts:
-            if self.peek( len(alt) ) == alt:
-                self.consume( len(alt) )
-                return alt
-        raise Exception( 'Expecting one of ' + str(alts) + ' but got \'' + self.peek( len(alt) ) + '\' instead')
-
-    def text( self, text ):
-        txt = self.peek( len(text) )
-        if txt != text:
-            raise Exception( 'Expecting \'' + text + '\' found \'' + txt +'\'') 
-        else:
-            self.consume( len(text) )
-            
-    def lookaheadTill(self,text):
-        bs = 0
-        while self.peek( bs )[-len(text):] != text and not self.isEOF: 
-            bs += 1
-        return self.peek( bs )[:-len(text)]
-    
     def parseHand( self ):
         hand = Hand()
         self.readHeader()

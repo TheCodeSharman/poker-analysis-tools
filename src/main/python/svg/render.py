@@ -36,7 +36,8 @@ class SvgCairoRenderer(SvgRenderer):
         if value[0] == '#':
             return ( int(value[1:2],16), int(value[3:4],16), int(value[5:6],16) )
         else:
-            raise "Unable to parse color"
+            #print "Warning: Unable to parse color: " + repr(value)
+            return ( 0, 0 , 0 )
         
     def enterGroup(self,matrix):
         self._ctx.save()
@@ -47,19 +48,15 @@ class SvgCairoRenderer(SvgRenderer):
         self._ctx.restore()
         
     def setStyle(self, styles):
+        self._strokeColor = None
+        self._fillColor  = None
         for (name,value) in styles.items():
-            if name == 'stroke':
-                if value != 'none':
-                    self._strokeColor = self.parseColorValue( value )
-                else:
-                    self._strokeColor = None
-            elif name == 'fill':
-                if value != 'none':
-                    self._fillColor = self.parseColorValue( value )
-                else:
-                    self._fillColor  = None
+            if name == 'stroke' and value != 'none':
+                self._strokeColor = self.parseColorValue( value )
+            elif name == 'fill' and value != 'none':
+                self._fillColor = self.parseColorValue( value )
             elif name == 'stroke-width':
-                    self._strokeWidth = float( value )
+                self._strokeWidth = float( value )
     
     def _hasStroke(self):
         return self._strokeColor != None

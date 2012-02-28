@@ -3,12 +3,14 @@ import wx.lib.wxcairo
 import cairo
 import svg.parse
 import svg.render
+
+import cProfile
  
 class PokerTable(wx.Window):
     def __init__(self, parent):
         wx.Window.__init__(self, parent)
-        self.tableSvg = svg.parse.loadSvgFile("resources/test.svg")
-        print self.tableSvg
+        self.tableSvg = svg.parse.loadSvgFile("resources/cards.svg")
+        #print self.tableSvg
         self.InitBuffer()
         self.Bind(wx.EVT_SIZE, self.OnSize) 
         self.Bind(wx.EVT_PAINT, self.OnPaint)
@@ -38,8 +40,10 @@ class Replayer(wx.Frame):
         self.Show(True)
         
 
-
-if __name__ == '__main__':
+def main():
     app = wx.App(False)
     frame = Replayer(None, 'Replayer')
     app.MainLoop()
+    
+if __name__ == '__main__':
+    main() # cProfile.run('main()', 'profile')

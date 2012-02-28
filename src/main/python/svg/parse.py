@@ -18,27 +18,32 @@
 
 import xml.etree.ElementTree as ET
 import math
-from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
+import itertools
+
+
+from pyparsing import Word, ParserElement, Optional, Regex, CaselessLiteral, oneOf, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
+
+
+ParserElement.enablePackrat()
 
 # FIXME: The number rule might be more efficiently implemented as a regex.
 # performance testing needed against both implementations.
 
 commaWsp = Optional(',').suppress()
 
-digitSequence = Word( nums )
+#digitSequence = Word( nums )
 
-sign = oneOf( '+ -' )
+#sign = oneOf( '+ -' )
 
-integerConstant = digitSequence
+#integerConstant = digitSequence
 
-fractionalConstant = digitSequence + Optional( '.' +  digitSequence ) | '.' +  digitSequence 
+#fractionalConstant = digitSequence + Optional( '.' +  digitSequence ) | '.' +  digitSequence 
 
-exponent = oneOf( 'e E' ) + Optional( sign ) + digitSequence
+#exponent = oneOf( 'e E' ) + Optional( sign ) + digitSequence
 
-def parseFloat( t):
-    return float( t[0] ) 
-number = Combine( Optional( sign ) + fractionalConstant + Optional( exponent ) )
-number.setParseAction( parseFloat)
+#number = Combine( Optional( sign ) + fractionalConstant + Optional( exponent ) )
+number = Regex('[+-]? *(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?')
+number.setParseAction( lambda t: float( t[0]))
 
 angle = number + ( CaselessLiteral('deg') | CaselessLiteral('grad') | CaselessLiteral('rad') )
 
@@ -111,21 +116,25 @@ transform = matrix | translate | scale | rotate | skewX | skewY
 
 transformList = transform + ZeroOrMore( commaWsp + transform )
 
-style = Dict( ZeroOrMore( Group( Word( srange('[a-zA-Z-]') ) + Suppress(':') + Word( srange('[0-9a-zA-z#.\'()]') )  + Optional(Suppress(';') )) ) )
+style = Dict( ZeroOrMore( Group( Word( srange('[a-zA-Z-]') ) + Suppress(':') + Word( srange('[0-9a-zA-z#.\'()-]') )  + Optional(Suppress(';') )) ) )
 
-pathCommand = Group( oneOf('M m')('command') + OneOrMore( number('x') + commaWsp + number('y') ) \
-    |  oneOf( 'Z z' )('command') \
-    |  oneOf( 'L l' )('command') + OneOrMore( number('x') + commaWsp + number('y') ) \
-    |  oneOf( 'H h' )('command') + OneOrMore( number('x') ) \
-    |  oneOf( 'V v' )('command') + OneOrMore( number('y') ) \
-    |  oneOf( 'C c' )('command') + OneOrMore( number('x1') + commaWsp + number('y1') + commaWsp + number('x2') + commaWsp + number('y2') + commaWsp + number('x') + commaWsp + number('y') ) \
-    |  oneOf( 'S s' )('command') + OneOrMore( number('x2') + commaWsp + number('y2') + commaWsp + number('x') + commaWsp +  number('y') ) \
-    |  oneOf( 'Q q' )('command') + OneOrMore( number('x1') + commaWsp + number('y1') + commaWsp + number('x') + commaWsp + number('y') ) \
-    |  oneOf( 'T t' )('command') + OneOrMore( number('x') + commaWsp + number('y') ) \
-    |  oneOf( 'A a' )('command') + OneOrMore( number('rx') +commaWsp + number('ry') + commaWsp + number('x-axis-rotation')  + commaWsp + number('large-arc-flag') + commaWsp + number('sweep-flag') + commaWsp + number('x') + commaWsp + number('y') ) \
-    )
+# parse path command old fashioned way
+def isCommand(s):
+    return s in 'MmZzLlHhVvCcSsQqTtAa'
 
-path = OneOrMore( pathCommand )
+def parsePathCommand(s):
+    res = []
+    els = s.split()
+    while len(els) > 0 and isCommand(els[0]):
+        cmd = [els[0]]
+        els = els[1:]
+        while len(els) > 0 and not isCommand(els[0]):
+            flts = els[0].split(',')
+            for f in flts:
+                cmd.append( float(f))
+            els = els[1:]
+        res.append(cmd)
+    return res
 
 shapeElements = [ 
           '{http://www.w3.org/2000/svg}g',
@@ -161,14 +170,14 @@ class SvgNode(object):
         else:
             return None
     
-    def parseAttr(self,parser,el,attr):
+    def parseAttr(self,parser,el,attr,strip=True,):
         a = self.readAttr( el, attr )
         if not a is None:
             res = parser.parseString(a)
             if len(res.keys()) > 0:
                 return res.asDict()
             res = res.asList()
-            if len(res) == 1:
+            if len(res) == 1 and strip:
                 return res[0]
             else:
                 return res
@@ -229,7 +238,7 @@ def cluster(lst,n):
 class SvgPath(SvgNode):
     def __init__(self,root):
         super(SvgPath,self).__init__(root)
-        self.d = self.parseAttr(path, root,'d')
+        self.d = parsePathCommand( self.readAttr(root,'d') )
         self.transform = self.parseAttr(transformList,root,'transform')
         self.style = self.parseAttr(style, root,'style')
 
