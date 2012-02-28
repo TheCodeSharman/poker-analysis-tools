@@ -2,11 +2,12 @@ import wx
 import wx.lib.wxcairo
 import cairo
 import svg.parse
-
+import svg.render
+ 
 class PokerTable(wx.Window):
     def __init__(self, parent):
         wx.Window.__init__(self, parent)
-        self.tableSvg = svg.parse.loadSvgFile("resources/table.svg")
+        self.tableSvg = svg.parse.loadSvgFile("resources/test.svg")
         print self.tableSvg
         self.InitBuffer()
         self.Bind(wx.EVT_SIZE, self.OnSize) 
@@ -20,7 +21,7 @@ class PokerTable(wx.Window):
         
     def DrawTable(self,dc):
         context = wx.lib.wxcairo.ContextFromDC(dc)
-        self.tableSvg.renderToCairo(context)
+        self.tableSvg.render(svg.render.SvgCairoRenderer(context))
         
     def OnPaint(self, evt):
         dc = wx.BufferedPaintDC(self, self.buffer)

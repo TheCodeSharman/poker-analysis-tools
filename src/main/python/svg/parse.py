@@ -17,8 +17,8 @@
 #
 
 import xml.etree.ElementTree as ET
-from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
 import math
+from pyparsing import Word, Optional, CaselessLiteral, nums, oneOf, Combine, ZeroOrMore, srange, Dict, Suppress, Group, OneOrMore #@UnresolvedImport
 
 # FIXME: The number rule might be more efficiently implemented as a regex.
 # performance testing needed against both implementations.
@@ -42,10 +42,8 @@ number.setParseAction( parseFloat)
 
 angle = number + ( CaselessLiteral('deg') | CaselessLiteral('grad') | CaselessLiteral('rad') )
 
-class SvgTransform(object):
-    pass
 
-class SvgMatrix(SvgTransform):
+class SvgMatrix(object):
     def __init__(self, a, b, c, d, e, f ):
         self.a = a
         self.b = b
@@ -58,49 +56,33 @@ class SvgMatrix(SvgTransform):
     def __repr__(self):
         return 'matrix(' + str(self.a) +',' + str(self.b) + ',' + str(self.c) + ',' + str(self.d) + ',' + str(self.e) + ',' + str(self.f) +')'
 
-class SvgTranslate(SvgTransform):
+class SvgTranslate(SvgMatrix):
     def __init__(self, tx, ty):
-        self.tx = tx
-        self.ty = ty
-    def __eq__(a,b): #@NoSelf
-        return a.tx == b.tx and b.ty == b.ty
+        SvgMatrix.__init__(self, 1, 0, 0, 1, tx, ty)
     def __repr__(self):
-        return 'translate(' + str(self.tx) + ',' + str(self.ty) + ')'
+        return 'translate(' + str(self.e) + ',' + str(self.f) + ')'
     
-class SvgScale(SvgTransform):
+class SvgScale(SvgMatrix):
     def __init__(self, sx, sy):
-        self.sx = sx
-        self.sy = sy
-    def __eq__(a,b): #@NoSelf
-        return a.sx == b.sx and b.sy == b.sy
+        SvgMatrix.__init__(self, sx, 0, 0, sy, 0, 0)
     def __repr__(self):
-        return 'scale(' + str(self.sx) + ',' + str(self.sy) + ')'
+        return 'scale(' + str(self.a) + ',' + str(self.d) + ')'
     
-class SvgRotate(SvgTransform):
+class SvgRotate(SvgMatrix):
     def __init__(self, angle, cx, cy):
-        self.angle = angle
-        self.cx = cx
-        self.cy = cy
-    def __eq__(a,b): #@NoSelf
-        return a.cx == b.cx and b.cy == b.cy and a.angle == b.angle
-    def __repr__(self):
-        return 'rotate(' + str(self.angle) + ',' + str(self.cx) + ',' + str(self.cy) + ')'
+        cs = math.cos(angle)
+        sn = math.sin(angle)
+        SvgMatrix.__init__(self, cs, sn, -sn, cs, cx - cs*cx + sn*cy, cy - sn*cx - cs*cy )
 
-class SvgSkewX(SvgTransform):
+class SvgSkewX(SvgMatrix):
     def __init__(self, angle ):
-        self.angle = angle
-    def __eq__(a,b): #@NoSelf
-        return a.angle == b.angle
-    def __repr__(self):
-        return 'skewX(' + str(self.angle) + ')'
+        tn = math.tan(angle)
+        SvgMatrix.__init__(self, 1, 0, tn, 1, 0, 0)
     
-class SvgSkewY(SvgTransform):
+class SvgSkewY(SvgMatrix):
     def __init__(self, angle ):
-        self.angle = angle
-    def __eq__(a,b): #@NoSelf
-        return a.angle == b.angle
-    def __repr__(self):
-        return 'skewY(' + str(self.angle) + ')'
+        tn = math.tan(angle)
+        SvgMatrix.__init__(self, 1, tn, 0, 1, 0, 0)
 
 matrix = 'matrix' + '(' + number('a') + commaWsp \
                 + number('b') + commaWsp \
@@ -205,9 +187,9 @@ class SvgNode(object):
     def __repr__(self):
         return self.dump(0)
     
-    def renderToCairo(self, cx):
+    def render(self, renderer):
         for c in self.children:
-            c.renderToCairo(cx)
+            c.render(renderer)
 
 class SvgRect(SvgNode):
     def __init__(self,root):
@@ -223,46 +205,14 @@ class SvgRect(SvgNode):
             self.rx = 0.0
         if self.ry is None:
             self.ry = 0.0
-        
-    # Cairo doesn't have a native ellipse arc
-    # so we have to construct one using transforms
-    def renderEllArc(self,cx,w,h,s,e):
-        ( sx, sy ) = cx.get_current_point()
-        cx.save()
-        cx.new_sub_path()
-        cx.translate(sx,sy)
-        cx.scale(1.0,-h/w)
-        cx.arc(0.,0.,w,s,e)
-        cx.restore()
 
-    def renderToCairo(self, cx):
+    def render(self, renderer):
+        renderer.setStyle( self.style )
         if self.rx == 0.0 and self.ry == 0.0:
-            # Simple rectangle
-            cx.rectangle(self.x,self.y,self.width,self.height)
-            cx.stroke()
+            renderer.rectangle(self.x,self.y,self.width,self.height)
         else:
-            # Rounded rectangle needs to be constructed from
-            # lines and ellipse arcs.
-            cx.move_to( self.x + self.rx, self.y)
-            cx.line_to( self.x + self.width - self.rx, self.y )
-            cx.rel_move_to( 0, self.ry )
-            self.renderEllArc( cx, self.rx, self.ry, 0.0, math.pi/2.0 )
-            cx.rel_move_to( self.rx, self.ry )
-            cx.rel_line_to( 0, self.height - 2*self.ry )
-            cx.rel_move_to( -self.rx, 0 )
-            self.renderEllArc( cx, self.rx, self.ry, 3*math.pi/2.0, 0.0  )
-            cx.rel_move_to( -self.rx, self.ry )
-            cx.rel_line_to( -(self.width - 2*self.rx), 0 )
-            cx.rel_move_to( 0, -self.ry)
-            self.renderEllArc( cx, self.rx, self.ry, math.pi, 3*math.pi/2.0 )
-            cx.rel_move_to( -self.rx, -self.ry )
-            cx.rel_line_to( 0, -(self.height - 2*self.ry))
-            cx.rel_move_to( self.rx, 0 )
-            self.renderEllArc(  cx, self.rx, self.ry, math.pi/2.0, math.pi )
-            cx.rel_move_to( self.rx, -self.ry )
-            cx.close_path()
-            cx.stroke()
-    
+            renderer.roundedRectangle(self.x,self.y,self.width,self.height,self.rx,self.ry)
+
     def dump(self,indent):
         return indent * ' ' + 'Rect %s width=%s height=%s rx=%s ry=%s x=%s y=%s style=%s\n'%(self.id, self.width, self.height, self.rx, self.ry, self.x, self.y, self.style)  + self.dumpChildren(indent+1)
 
@@ -285,6 +235,11 @@ class SvgGroup(SvgNode):
         super(SvgGroup,self).__init__(root)
         self.transform = self.parseAttr(transformList,root,'transform')
         self.parseSubElements( root,shapeElements)
+        
+    def render(self, renderer):
+        renderer.enterGroup( self.transform )
+        super(SvgGroup,self).render(renderer)
+        renderer.exitGroup()
 
     def dump(self,indent):
         return indent * ' ' + 'Group %s'%self.id + ' transform=' + str(self.transform)+ '\n' + self.dumpChildren(indent+1) 
