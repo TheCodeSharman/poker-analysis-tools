@@ -1,3 +1,6 @@
+class BadAlternative(Exception):
+    pass
+
 class Scanner(object):
     def __init__(self):
         self.file_ = None
@@ -43,7 +46,7 @@ class Scanner(object):
             if self.peek( len(alt) ) == alt:
                 self.consume( len(alt) )
                 return alt
-        raise Exception( 'Expecting one of ' + str(alts) + ' but got \'' + self.peek( len(alt) ) + '\' instead')
+        raise BadAlternative( 'Expecting one of ' + str(alts) + ' but got \'' + self.peek( len(alt) ) + '\' instead')
 
     def text( self, text ):
         txt = self.peek( len(text) )

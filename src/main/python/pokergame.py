@@ -134,21 +134,21 @@ class BettingRound(object):
 
 class Action(object):
     '''The action a player takes'''
-    Raise, Bet, ReRaise, Call, Fold, Check, Post = range(7)
+    Raise, Bet, ReRaise, Call, Fold, Check, Post, Collect = range(8)
     
     def actionToString(self):
-        return [ "Raise", "Bet", "Reraise", "Call", "Fold", "Check", "Post" ][self.action]
+        return [ "Raise", "Bet", "Reraise", "Call", "Fold", "Check", "Post", "Collect" ][self.action]
     
     def __init__(self):
         self.player = None          # Player
         self.action = None          # ActionType
-        self.bet = None             # Money
+        self.amount = None             # Money
         self.stack = None           # Money
     
     def __repr__(self):
         return ("Action( player = \"" + str(self.player.name) + "\""
                   + ", action = " + self.actionToString() 
-                  + ", bet = " + str(self.bet)
+                  + ", amount = " + str(self.amount)
                   + ", stack = " + str(self.stack) + ")")
         
         

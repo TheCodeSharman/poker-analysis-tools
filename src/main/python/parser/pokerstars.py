@@ -30,11 +30,14 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
         self.readInitialStacks(hand)
         self.readBlinds(hand)
         self.readHoleCards(hand)
+        flop = True
         if ( self.readFlop(hand) ):
             if ( self.readTurn(hand) ):
                 if ( self.readRiver(hand) ):
                     self.readShowdown(hand)
-        self.readSummary(hand)
+        else:
+            flop = False
+        self.readSummary(hand,flop)
         return hand
     
     def readBlinds(self,hand):
@@ -118,41 +121,43 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
             return False
         
     def readShowdown(self,hand):
-        self.text( '*** SHOW DOWN ***\n' )
+        showdownText = '*** SHOW DOWN ***\n'
+        if self.peek( len(showdownText) ) == showdownText:
+            self.text( showdownText )
+            showdown = BettingRound()
+            actions= []
         
-        # read showdown actions
-        playerSet = hand.rounds[-1].livePlayers.copy()
-        while len(playerSet) > 0:
-            p = self.alternative(playerSet)
-            self.text(': ')
-            txt = self.alternative( [ 'shows', 'mucks hand'] )
-            if ( txt == 'shows' ):
-                self.text(' ')
-                hand.players[p].startingHand = self.readCards()
-            txt = self.lookaheadTill('\n')
-            self.consume( len(txt)+1 )
-            playerSet = playerSet.difference([p])
-        
-        # read who collected
-        playerSet = hand.rounds[-1].livePlayers.copy()
-        try:
-            p = self.alternative( playerSet )
-            self.text(' collected ')
-            hand.players[p].win = Money( self.number() )
-            self.text(' from pot\n')
-        finally:
-            pass
+            # read showdown actions
+            playerSet = hand.rounds[-1].livePlayers.copy()
+            while len(playerSet) > 0:
+                p = self.alternative(playerSet)
+                self.text(': ')
+                txt = self.alternative( [ 'shows', 'mucks hand'] )
+                if ( txt == 'shows' ):
+                    self.text(' ')
+                    hand.players[p].startingHand = self.readCards()
+                txt = self.lookaheadTill('\n')
+                self.consume( len(txt)+1 )
+                playerSet = playerSet.difference([p])
+            
+            # showdown is added as a betting round
+            self.readCollectFromPot(actions,hand.rounds[-1].livePlayers)
+            hand.addBetRound(showdown,actions)
+            return True
+        else:
+            return False
 
-    def readSummary(self,hand):
+    def readSummary(self,hand,flop):
         self.text( '*** SUMMARY ***\n' )
         self.text( 'Total pot ')
         self.number()
         self.text( ' | Rake ')
         self.number()
         self.text(' \n')
-        self.text('Board ')
-        self.readCards()
-        self.text('\n')
+        if flop:
+            self.text('Board ')
+            self.readCards()
+            self.text('\n')
         for i in range( hand.numOfSeats ):
             self.text('Seat ' + str(i+1) + ': ')
             self.alternative(hand.players.keys())
@@ -169,10 +174,40 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
                 self.text(': ')
                 actions.append( [p, self.readAction()] )
                 self.text('\n')
-            except:
+            except scanner.BadAlternative:
                 more = False
-
+        self.readCollectFromPot(actions,playerSet)
+                
         return actions
+    
+    def readCollectFromPot(self,actions,playerSet):                        
+        more = True
+        alts = playerSet.copy()
+        alts.add( 'Uncalled bet (' ) 
+        while more:
+            try:
+                alt = self.alternative( alts )
+                amount = None
+                if alt == 'Uncalled bet (':
+                    amount = self.number()
+                    self.text(') returned to ')
+                    p = self.alternative(playerSet)
+                    actions.append( [p, self.collectMoney(amount) ])
+                    self.text('\n')
+                else:
+                    p = alt
+                    if self.alternative( [': doesn\'t show hand \n', ' collected ' ] ) == ' collected ':
+                        amount = self.number()
+                        actions.append( [p, self.collectMoney(amount) ])
+                        self.text(' from pot\n')
+            except scanner.BadAlternative:
+                more = False
+    
+    def collectMoney(self,amount):
+        act = Action()
+        act.action = Action.Collect
+        act.amount = amount
+        return act
     
     def readAction(self):
         act = Action()
@@ -192,7 +227,7 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
                 act.action = Action.Call
             else:
                 act.action = Action.Bet
-            act.bet = Money( self.number() )
+            act.amount = Money( self.number() )
             return act
         
         if txt == 'raises':
@@ -200,9 +235,10 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
             self.number()
             self.text(' to ')
             act.action = Action.Raise
-            act.bet = Money( self.number() ) 
-            
-        raise Exception( 'Unexpected action !!')
+            act.amount = Money( self.number() ) 
+            return act 
+        
+        raise Exception( 'Unexpected action : "'+txt+'"!!')
         
     def readCards(self):
         cards = []
