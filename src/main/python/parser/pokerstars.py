@@ -42,6 +42,7 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
             else:
                 flop = False
             self.readSummary(hand,flop)
+            self.consumeWhitespace()
             return hand
         except handparser.HandParsingException:
             raise
