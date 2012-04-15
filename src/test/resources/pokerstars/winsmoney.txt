@@ -1,0 +1,54 @@
+PokerStars Hand #73735809790: Tournament #493383783, 20FPP Hold'em No Limit - Level XII (500/1000) - 2012/01/13 7:07:41 AEST [2012/01/12 15:07:41 ET]
+Table '493383783 17' 9-max Seat #9 is the button
+Seat 1: PAVEL.10000$ (4392 in chips) 
+Seat 2: korpen11 (6623 in chips) 
+Seat 3: Nikiss 98 (1955 in chips) 
+Seat 4: DANYBRUCE29 (27020 in chips) is sitting out
+Seat 5: gramafay (3563 in chips) 
+Seat 6: antler88 (4740 in chips) 
+Seat 7: kaug (6995 in chips) 
+Seat 8: Himik777 (4434 in chips) 
+Seat 9: kjy333 (7785 in chips) 
+PAVEL.10000$: posts the ante 100
+korpen11: posts the ante 100
+Nikiss 98: posts the ante 100
+DANYBRUCE29: posts the ante 100
+gramafay: posts the ante 100
+antler88: posts the ante 100
+kaug: posts the ante 100
+Himik777: posts the ante 100
+kjy333: posts the ante 100
+PAVEL.10000$: posts small blind 500
+korpen11: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to antler88 [Ah Ks]
+Nikiss 98: folds 
+DANYBRUCE29: folds 
+gramafay: folds 
+antler88: raises 3640 to 4640 and is all-in
+kaug: folds 
+Himik777: calls 4334 and is all-in
+kjy333: folds 
+PAVEL.10000$: folds 
+korpen11: folds 
+Uncalled bet (306) returned to antler88
+*** FLOP *** [3c As Ts]
+*** TURN *** [3c As Ts] [4s]
+*** RIVER *** [3c As Ts 4s] [Jh]
+*** SHOW DOWN ***
+antler88: shows [Ah Ks] (a pair of Aces)
+Himik777: shows [Js Qh] (a pair of Jacks)
+antler88 collected 11068 from pot
+Himik777 finished the tournament in 696th place and received $0.31.
+*** SUMMARY ***
+Total pot 11068 | Rake 0 
+Board [3c As Ts 4s Jh]
+Seat 1: PAVEL.10000$ (small blind) folded before Flop
+Seat 2: korpen11 (big blind) folded before Flop
+Seat 3: Nikiss 98 folded before Flop (didn't bet)
+Seat 4: DANYBRUCE29 folded before Flop (didn't bet)
+Seat 5: gramafay folded before Flop (didn't bet)
+Seat 6: antler88 showed [Ah Ks] and won (11068) with a pair of Aces
+Seat 7: kaug folded before Flop (didn't bet)
+Seat 8: Himik777 showed [Js Qh] and lost with a pair of Jacks
+Seat 9: kjy333 (button) folded before Flop (didn't bet)

@@ -1,0 +1,57 @@
+﻿PokerStars Hand #74723366739: Tournament #503445330, Freeroll  Hold'em No Limit - Level I (10/20) - 2012/01/30 20:00:13 AEST [2012/01/30 4:00:13 ET]
+Table '503445330 455' 9-max Seat #1 is the button
+Seat 1: LOKY000 (1200 in chips) 
+Seat 2: adiopel2009 (1200 in chips) 
+Seat 3: SLAVA ZENIT (1200 in chips) is sitting out
+Seat 4: buyan837 (1200 in chips) 
+Seat 5: Bash.s (1200 in chips) 
+Seat 6: bikingo17 (1200 in chips) 
+Seat 7: antler88 (1200 in chips) 
+Seat 8: SerB0 (1200 in chips) 
+Seat 9: edkilb (1200 in chips) 
+adiopel2009: posts small blind 10
+SLAVA ZENIT: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [Tc 2h]
+LOKY000 re-buys and receives 1200 chips for $0.30
+buyan837 has timed out
+buyan837: folds 
+buyan837 is sitting out
+Bash.s: calls 20
+bikingo17: calls 20
+antler88: folds 
+SerB0: folds 
+edkilb: folds 
+LOKY000: calls 20
+adiopel2009: calls 10
+SLAVA ZENIT: folds 
+*** FLOP *** [7h 9h Qd]
+adiopel2009: checks 
+Bash.s: checks 
+bikingo17: bets 60
+LOKY000: folds 
+adiopel2009: folds 
+Bash.s: raises 100 to 160
+bikingo17: calls 100
+*** TURN *** [7h 9h Qd] [7s]
+Bash.s: bets 120
+bikingo17: calls 120
+*** RIVER *** [7h 9h Qd 7s] [Jc]
+Bash.s: bets 100
+bikingo17: calls 100
+*** SHOW DOWN ***
+Bash.s: shows [6d Qh] (two pair, Queens and Sevens)
+bikingo17: mucks hand 
+Bash.s collected 860 from pot
+*** SUMMARY ***
+Total pot 860 | Rake 0 
+Board [7h 9h Qd 7s Jc]
+Seat 1: LOKY000 (button) folded on the Flop
+Seat 2: adiopel2009 (small blind) folded on the Flop
+Seat 3: SLAVA ZENIT (big blind) folded before Flop
+Seat 4: buyan837 folded before Flop (didn't bet)
+Seat 5: Bash.s showed [6d Qh] and won (860) with two pair, Queens and Sevens
+Seat 6: bikingo17 mucked [As 9c]
+Seat 7: antler88 folded before Flop (didn't bet)
+Seat 8: SerB0 folded before Flop (didn't bet)
+Seat 9: edkilb folded before Flop (didn't bet)

@@ -1,0 +1,19 @@
+﻿PokerStars Hand #73557972396: Tournament #497394423, $1.38+$0.12 USD Hold'em No Limit - Match Round I, Level I (10/20) - 2012/01/10 3:46:52 AEST [2012/01/09 11:46:52 ET]
+Table '497394423 1' 2-max Seat #1 is the button
+Seat 1: pixfo24 (1500 in chips) 
+Seat 2: antler88 (1500 in chips) 
+pixfo24: posts small blind 10
+antler88: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [7h 5h]
+pixfo24: calls 10
+antler88: raises 40 to 60
+pixfo24: folds 
+Uncalled bet (40) returned to antler88
+antler88 collected 40 from pot
+antler88: doesn't show hand 
+*** SUMMARY ***
+Total pot 40 | Rake 0 
+Seat 1: pixfo24 (button) (small blind) folded before Flop
+Seat 2: antler88 (big blind) collected (40)
+

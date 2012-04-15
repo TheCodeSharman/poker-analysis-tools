@@ -54,24 +54,18 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
         actions = []
         playerSet = set( hand.players.keys() )
         
-        # read small blind 
-        pid = self.alternative(playerSet)
-        self.text(': posts small blind ')
-        act = Action()
-        act.action = Action.Post
-        act.bet = self.number()
-        actions.append( [pid, act] )
-        self.text('\n')
-        
-        # read big blind 
-        pid = self.alternative(playerSet)
-        self.text(': posts big blind ')
-        act = Action()
-        act.action = Action.Post
-        act.bet = self.number()
-        actions.append( [pid, act] )
-        self.text('\n')
-        
+        while True:
+            try:
+                pid = self.alternative(playerSet)
+            except scanner.BadAlternative:
+                break
+            self.alternative( [ ': posts small blind ', ': posts big blind ', ': posts the ante '])
+            act = Action()
+            act.action = Action.Post
+            act.bet = self.number()
+            actions.append( [pid, act] )
+            self.alternative([ '\n', ' and is all-in\n' ])
+     
         hand.addBetRound(preflop,actions)
     
     def readHoleCards(self,hand):
@@ -148,8 +142,16 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
         alt = self.alternative( [ 'Main pot ', '|' ] )
         if alt != '|':
             self.number()
-            self.text( '. Side pot ')
-            self.number()
+            while True:
+                try:
+                    self.text( '. Side pot' )
+                except scanner.BadAlternative:
+                    break
+                if self.peek(1) == '-':
+                    self.text('-')
+                    self.number()
+                self.text(' ')
+                self.number()
             self.text( '. |')
         self.text( ' Rake ')
         self.number()
@@ -170,53 +172,84 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
 
     def readBettingActions(self, betRound, livePlayers):
         actions = []
-        more = True
-        while more:
+        while True:
             try: 
-                p = self.alternative(list(livePlayers) + ['Uncalled bet ('])
-                if p == 'Uncalled bet (':
+                p = self.alternative(list(livePlayers) + ['Uncalled bet (' ])
+            except scanner.BadAlternative:
+                if self.peek(3) == '***': # we've finished this section
+                    break
+                else:
+                    # we can't parse this line so skip it instead
+                    self.text( self.lookaheadTill('\n') + '\n')
+                    continue
+                    
+            if p == 'Uncalled bet (':
+                amount = self.number()
+                self.text(') returned to ')
+                p = self.alternative(livePlayers)
+                actions.append( [p, self.collectMoney(amount) ])
+                self.text('\n')
+            else:
+                alt = self.alternative(
+                        [ 
+                         ': doesn\'t show hand ',
+                         ': ', # an action is performed
+                         ' said, "',
+                         ' is disconnected ', 
+                         ' has timed out while disconnected', 
+                         ' has timed out while being disconnected',
+                         ' is sitting out', 
+                         ' has timed out',
+                         ' has returned',
+                         ' is connected ',
+                         ' collected ',  
+                         ' finished the tournament in ',
+                         ' wins the tournament and receives ',
+                         ' re-buys and receives ',
+                         ' wins the '
+                        ])
+                if alt == ': ':
+                    actions.append( [p, self.readAction()] )
+                    self.text('\n')
+                elif alt == ' collected ':
                     amount = self.number()
-                    self.text(') returned to ')
-                    p = self.alternative(livePlayers)
                     actions.append( [p, self.collectMoney(amount) ])
+                    self.text(' from ')
+                    alt2 = self.alternative( [ 'pot', 'side pot', 'main pot' ] )
+                    if alt2 == 'side pot':
+                        if self.peek(1) == '-':
+                            self.text('-')
+                            self.number()
+                            self.text(' ')
+                    self.text('\n')
+                elif alt == ' finished the tournament in ':
+                    self.number()
+                    self.alternative( ['st', 'nd', 'rd', 'th'])
+                    alt2 = self.alternative([ ' place\n', ' place and received ' ])
+                    if alt2 != ' place\n':
+                        self.money()
+                        self.text('.\n')
+                elif alt == ' wins the tournament and receives ':
+                    self.money()
+                    self.text( ' - congratulations!\n')
+                elif alt == ' said, "':
+                    self.text( self.lookaheadTill('"') )
+                    self.text('"\n')
+                elif alt == ' is sitting out':
+                    self.text('\n')
+                elif alt == ' re-buys and receives ':
+                    amount = self.number()
+                    actions.append( [p, self.collectMoney(amount) ])
+                    self.text(' chips for ')
+                    self.money()
+                    self.text('\n')
+                elif alt == ' wins the ':
+                    self.money()
+                    self.text(' bounty for eliminating ')
+                    self.alternative(livePlayers)
                     self.text('\n')
                 else:
-                    alt = self.alternative(
-                            [ 
-                             ': doesn\'t show hand ',
-                             ': ', # an action is performed
-                             ' said, "', 
-                             ' is disconnected ', 
-                             ' has timed out while disconnected', 
-                             ' is sitting out', 
-                             ' has timed out',
-                             ' has returned',
-                             ' collected ',  
-                             ' finished the tournament in '
-                            ])
-                    if alt == ': ':
-                        actions.append( [p, self.readAction()] )
-                        self.text('\n')
-                    elif alt == ' collected ':
-                        amount = self.number()
-                        actions.append( [p, self.collectMoney(amount) ])
-                        self.text(' from ')
-                        self.alternative( [ 'pot', 'side pot', 'main pot' ] )
-                        self.text('\n')
-                    elif alt == ' finished the tournament in ':
-                        self.number()
-                        self.alternative( ['st', 'nd', 'rd', 'th'])
-                        self.text(' place\n')
-                    elif alt == ' said, "':
-                        self.text( self.lookaheadTill('"') )
-                        self.text('"\n')
-                    elif alt == ' is sitting out':
-                        self.text('\n')
-                    else:
-                        self.text('\n')
-            except scanner.BadAlternative:
-                more = False
-                     
+                    self.text('\n')    
         return actions
 
     
@@ -234,6 +267,8 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
             self.text(' ')
             if txt == 'folds':
                 act.action = Action.Fold
+                if self.peek(1) == '[':
+                    act.cards = self.readCards()
             else:
                 act.action = Action.Check
             return act
@@ -361,12 +396,25 @@ class PokerStarsHandParser(scanner.Scanner,handparser.HandParser):
         self.text(': Tournament #')
         self.number()
         self.text(', ')
-        self.money()
-        self.text('+')
-        self.money()
-        self.text(' ')
-        self.alternative( self.currencies )
-        self.text(' Hold\'em No Limit - Level ')
+        if self.peek(1) == '$':
+            self.money()
+            self.text('+')
+            self.money()
+            if self.peek(1) == '+': # Knockout tourneys can have a third amount
+                self.text('+')
+                self.money()
+            self.text(' ')
+            self.alternative( self.currencies )
+        elif self.peek(1) == 'F':
+            self.text('Freeroll ')
+        else:
+            self.number()
+            self.text('FPP')
+        self.text(' Hold\'em No Limit - ')
+        alt = self.alternative( [ 'Level ', 'Match Round ' ])
+        if alt == 'Match Round ':
+            self.roman()
+            self.text(', Level ')
         self.roman()
         self.text(' (')
         self.number()

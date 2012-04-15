@@ -1,0 +1,53 @@
+PokerStars Hand #74606593544: Tournament #507604680, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/01/28 19:07:04 AEST [2012/01/28 3:07:04 ET]
+Table '507604680 2' 9-max Seat #7 is the button
+Seat 1: alelu57 (1205 in chips) 
+Seat 2: rus-55_For (3021 in chips) 
+Seat 3: seanybhoy188 (4596 in chips) 
+Seat 4: lydeka33 (1940 in chips) 
+Seat 5: astesia (5930 in chips) 
+Seat 6: romario6988 (325 in chips) 
+Seat 7: antler88 (663 in chips) 
+Seat 8: den-yarik (2595 in chips) 
+Seat 9: morenazo2011 (1165 in chips) 
+den-yarik: posts small blind 25
+morenazo2011: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [Jc 7s]
+alelu57: calls 50
+rus-55_For: calls 50
+seanybhoy188: raises 200 to 250
+lydeka33: folds 
+astesia: folds 
+romario6988: folds 
+antler88: folds 
+den-yarik: folds 
+morenazo2011: folds 
+alelu57: calls 200
+rus-55_For: calls 200
+*** FLOP *** [Ah Kc 6h]
+alelu57: bets 50
+rus-55_For: calls 50
+seanybhoy188: raises 250 to 300
+alelu57: folds 
+rus-55_For: calls 250
+*** TURN *** [Ah Kc 6h] [Ac]
+rus-55_For: checks 
+seanybhoy188: checks 
+*** RIVER *** [Ah Kc 6h Ac] [7d]
+rus-55_For: checks 
+seanybhoy188: bets 737
+rus-55_For: folds [4h 4d]
+Uncalled bet (737) returned to seanybhoy188
+seanybhoy188 collected 1475 from pot
+*** SUMMARY ***
+Total pot 1475 | Rake 0 
+Board [Ah Kc 6h Ac 7d]
+Seat 1: alelu57 folded on the Flop
+Seat 2: rus-55_For folded on the River
+Seat 3: seanybhoy188 collected (1475)
+Seat 4: lydeka33 folded before Flop (didn't bet)
+Seat 5: astesia folded before Flop (didn't bet)
+Seat 6: romario6988 folded before Flop (didn't bet)
+Seat 7: antler88 (button) folded before Flop (didn't bet)
+Seat 8: den-yarik (small blind) folded before Flop
+Seat 9: morenazo2011 (big blind) folded before Flop

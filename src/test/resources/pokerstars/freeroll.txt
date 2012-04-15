@@ -1,0 +1,56 @@
+﻿PokerStars Hand #75958255869: Tournament #516323372, Freeroll  Hold'em No Limit - Level I (20/40) - 2012/02/21 20:59:56 AEST [2012/02/21 4:59:56 ET]
+Table '516323372 1098' 9-max Seat #1 is the button
+Seat 1: MAZDA_GTI (1500 in chips) 
+Seat 2: pilax21 (1500 in chips) 
+Seat 3: antler88 (1500 in chips) 
+Seat 4: catalufa421 (1500 in chips) is sitting out
+Seat 5: jimmy kers (1500 in chips) is sitting out
+Seat 6: kandur1986 (1500 in chips) 
+Seat 7: vlad66626 (1500 in chips) 
+Seat 8: petrea25 (1500 in chips) 
+Seat 9: olegjosh (1500 in chips) 
+pilax21: posts small blind 20
+antler88: posts big blind 40
+*** HOLE CARDS ***
+Dealt to antler88 [2s As]
+catalufa421: folds 
+jimmy kers: folds 
+kandur1986: calls 40
+vlad66626: calls 40
+petrea25: calls 40
+olegjosh: folds 
+MAZDA_GTI: calls 40
+pilax21: folds 
+antler88: checks 
+*** FLOP *** [5d Js 5h]
+antler88: checks 
+kandur1986: checks 
+vlad66626: checks 
+petrea25: bets 360
+MAZDA_GTI: calls 360
+antler88: folds 
+kandur1986: folds 
+vlad66626: folds 
+*** TURN *** [5d Js 5h] [Kd]
+petrea25: bets 1100 and is all-in
+MAZDA_GTI: calls 1100 and is all-in
+*** RIVER *** [5d Js 5h Kd] [Tc]
+*** SHOW DOWN ***
+petrea25: shows [2d Ac] (a pair of Fives)
+MAZDA_GTI: shows [5s 7c] (three of a kind, Fives)
+MAZDA_GTI collected 3140 from pot
+petrea25 finished the tournament in 9714th place
+*** SUMMARY ***
+Total pot 3140 | Rake 0 
+Board [5d Js 5h Kd Tc]
+Seat 1: MAZDA_GTI (button) showed [5s 7c] and won (3140) with three of a kind, Fives
+Seat 2: pilax21 (small blind) folded before Flop
+Seat 3: antler88 (big blind) folded on the Flop
+Seat 4: catalufa421 folded before Flop (didn't bet)
+Seat 5: jimmy kers folded before Flop (didn't bet)
+Seat 6: kandur1986 folded on the Flop
+Seat 7: vlad66626 folded on the Flop
+Seat 8: petrea25 showed [2d Ac] and lost with a pair of Fives
+Seat 9: olegjosh folded before Flop (didn't bet)
+
+

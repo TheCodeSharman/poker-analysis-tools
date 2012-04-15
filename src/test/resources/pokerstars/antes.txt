@@ -1,0 +1,61 @@
+PokerStars Hand #73733798497: Tournament #493383783, 20FPP Hold'em No Limit - Level VII (125/250) - 2012/01/13 6:35:13 AEST [2012/01/12 14:35:13 ET]
+Table '493383783 17' 9-max Seat #9 is the button
+Seat 1: julijan1313 (1069 in chips) 
+Seat 2: korpen11 (3405 in chips) 
+Seat 3: i.luser (920 in chips) is sitting out
+Seat 4: hmmakivka (5955 in chips) 
+Seat 5: XulanX (1414 in chips) 
+Seat 6: antler88 (3190 in chips) 
+Seat 7: kaug (4185 in chips) 
+Seat 8: Himik777 (4484 in chips) 
+Seat 9: Sophie9989 (5168 in chips) 
+julijan1313: posts the ante 25
+korpen11: posts the ante 25
+i.luser: posts the ante 25
+hmmakivka: posts the ante 25
+XulanX: posts the ante 25
+antler88: posts the ante 25
+kaug: posts the ante 25
+Himik777: posts the ante 25
+Sophie9989: posts the ante 25
+julijan1313: posts small blind 125
+korpen11: posts big blind 250
+*** HOLE CARDS ***
+Dealt to antler88 [8s Th]
+i.luser: folds 
+hmmakivka: folds 
+XulanX: folds 
+antler88: folds 
+kaug: folds 
+Himik777: folds 
+Sophie9989: folds 
+julijan1313: calls 125
+korpen11: checks 
+*** FLOP *** [Qh Qs Kc]
+julijan1313: checks 
+korpen11: checks 
+*** TURN *** [Qh Qs Kc] [2h]
+julijan1313: bets 362
+korpen11: calls 362
+*** RIVER *** [Qh Qs Kc 2h] [Ah]
+julijan1313: bets 432 and is all-in
+korpen11: calls 432
+*** SHOW DOWN ***
+julijan1313: shows [7c Qc] (three of a kind, Queens)
+korpen11: shows [7h Kh] (a flush, Ace high)
+korpen11 collected 2313 from pot
+julijan1313 finished the tournament in 1771st place
+*** SUMMARY ***
+Total pot 2313 | Rake 0 
+Board [Qh Qs Kc 2h Ah]
+Seat 1: julijan1313 (small blind) showed [7c Qc] and lost with three of a kind, Queens
+Seat 2: korpen11 (big blind) showed [7h Kh] and won (2313) with a flush, Ace high
+Seat 3: i.luser folded before Flop (didn't bet)
+Seat 4: hmmakivka folded before Flop (didn't bet)
+Seat 5: XulanX folded before Flop (didn't bet)
+Seat 6: antler88 folded before Flop (didn't bet)
+Seat 7: kaug folded before Flop (didn't bet)
+Seat 8: Himik777 folded before Flop (didn't bet)
+Seat 9: Sophie9989 (button) folded before Flop (didn't bet)
+
+

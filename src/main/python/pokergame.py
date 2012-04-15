@@ -70,7 +70,7 @@ class Hand(object):
         for a in betRound.actions:
             if a.action == Action.Fold:
                 betRound.livePlayers = betRound.livePlayers.difference([a.player.name])
-            elif a.action == Action.Show:
+            if not a.cards is None:
                 self.players[a.player.name].startingHand = a.cards
         # append the new bet round
         self.rounds.append(betRound)

@@ -1,0 +1,51 @@
+PokerStars Hand #74606128567: Tournament #507604680, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2012/01/28 18:41:19 AEST [2012/01/28 2:41:19 ET]
+Table '507604680 2' 9-max Seat #5 is the button
+Seat 3: seanybhoy188 (1470 in chips) is sitting out
+Seat 4: xipi_style (3040 in chips) 
+Seat 5: astesia (2980 in chips) 
+Seat 6: igrok x10 (1460 in chips) 
+Seat 7: antler88 (1480 in chips) 
+Seat 8: den-yarik (1650 in chips) 
+Seat 9: morenazo2011 (1420 in chips) 
+igrok x10: posts small blind 10
+antler88: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [4s Jc]
+den-yarik: calls 20
+morenazo2011: calls 20
+seanybhoy188: folds 
+xipi_style: folds 
+astesia: folds 
+alelu57 is connected 
+igrok x10: calls 10
+antler88: checks 
+*** FLOP *** [8s 5s Ah]
+igrok x10: checks 
+antler88: checks 
+den-yarik: checks 
+morenazo2011: checks 
+*** TURN *** [8s 5s Ah] [Qd]
+igrok x10: checks 
+antler88: checks 
+den-yarik: bets 20
+morenazo2011: folds 
+igrok x10: calls 20
+antler88: calls 20
+*** RIVER *** [8s 5s Ah Qd] [Ts]
+igrok x10: checks 
+antler88: checks 
+den-yarik: bets 100
+igrok x10: folds 
+antler88: folds 
+Uncalled bet (100) returned to den-yarik
+den-yarik collected 140 from pot
+*** SUMMARY ***
+Total pot 140 | Rake 0 
+Board [8s 5s Ah Qd Ts]
+Seat 3: seanybhoy188 folded before Flop (didn't bet)
+Seat 4: xipi_style folded before Flop (didn't bet)
+Seat 5: astesia (button) folded before Flop (didn't bet)
+Seat 6: igrok x10 (small blind) folded on the River
+Seat 7: antler88 (big blind) folded on the River
+Seat 8: den-yarik collected (140)
+Seat 9: morenazo2011 folded on the Turn

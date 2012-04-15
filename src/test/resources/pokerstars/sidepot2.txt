@@ -1,0 +1,54 @@
+PokerStars Hand #75958422625: Tournament #516323372, Freeroll  Hold'em No Limit - Level I (20/40) - 2012/02/21 21:06:25 AEST [2012/02/21 5:06:25 ET]
+Table '516323372 1098' 9-max Seat #8 is the button
+Seat 1: MAZDA_GTI (2300 in chips) 
+Seat 2: pilax21 (1480 in chips) 
+Seat 3: antler88 (1240 in chips) 
+Seat 4: catalufa421 (1440 in chips) is sitting out
+Seat 5: WOLK 124 (1200 in chips) 
+Seat 6: adiluca74 (540 in chips) 
+Seat 7: izil777 (1820 in chips) 
+Seat 8: zsolesz009 (7100 in chips) 
+Seat 9: olegjosh (4540 in chips) 
+olegjosh: posts small blind 20
+MAZDA_GTI: posts big blind 40
+*** HOLE CARDS ***
+Dealt to antler88 [3d 8c]
+pilax21: raises 80 to 120
+antler88: folds 
+catalufa421: folds 
+WOLK 124: calls 120
+adiluca74: folds 
+izil777: calls 120
+zsolesz009: raises 80 to 200
+olegjosh: calls 180
+MAZDA_GTI: raises 2100 to 2300 and is all-in
+pilax21: calls 1360 and is all-in
+WOLK 124: folds 
+izil777: calls 1700 and is all-in
+zsolesz009: calls 2100
+olegjosh: folds 
+*** FLOP *** [Ks Jh Qc]
+*** TURN *** [Ks Jh Qc] [7s]
+*** RIVER *** [Ks Jh Qc 7s] [6s]
+*** SHOW DOWN ***
+MAZDA_GTI: shows [7h Ac] (a pair of Sevens)
+zsolesz009: shows [4h Kh] (a pair of Kings)
+zsolesz009 collected 960 from side pot-2 
+izil777: shows [5d 5s] (a pair of Fives)
+zsolesz009 collected 1020 from side pot-1 
+pilax21: shows [Qs Kc] (two pair, Kings and Queens)
+pilax21 collected 6240 from main pot
+MAZDA_GTI finished the tournament in 7655th place
+izil777 finished the tournament in 7656th place
+*** SUMMARY ***
+Total pot 8220 Main pot 6240. Side pot-1 1020. Side pot-2 960. | Rake 0 
+Board [Ks Jh Qc 7s 6s]
+Seat 1: MAZDA_GTI (big blind) showed [7h Ac] and lost with a pair of Sevens
+Seat 2: pilax21 showed [Qs Kc] and won (6240) with two pair, Kings and Queens
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: catalufa421 folded before Flop (didn't bet)
+Seat 5: WOLK 124 folded before Flop
+Seat 6: adiluca74 folded before Flop (didn't bet)
+Seat 7: izil777 showed [5d 5s] and lost with a pair of Fives
+Seat 8: zsolesz009 (button) showed [4h Kh] and won (1980) with a pair of Kings
+Seat 9: olegjosh (small blind) folded before Flop

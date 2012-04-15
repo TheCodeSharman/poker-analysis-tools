@@ -1,0 +1,39 @@
+PokerStars Hand #73732628167: Tournament #493383783, 20FPP Hold'em No Limit - Level III (25/50) - 2012/01/13 6:16:49 AEST [2012/01/12 14:16:49 ET]
+Table '493383783 17' 9-max Seat #2 is the button
+Seat 1: julijan1313 (489 in chips) 
+Seat 2: 1BigP%cket@@ (5283 in chips) 
+Seat 3: i.luser (1420 in chips) is sitting out
+Seat 4: DUTUNG (10 in chips) is sitting out
+Seat 5: ratouille1 (1323 in chips) 
+Seat 6: antler88 (2020 in chips) 
+Seat 7: deshbenitez (1420 in chips) 
+Seat 8: Himik777 (1415 in chips) 
+Seat 9: Sophie9989 (1545 in chips) 
+i.luser: posts small blind 25
+DUTUNG: posts big blind 10 and is all-in
+*** HOLE CARDS ***
+Dealt to antler88 [2d 7h]
+ratouille1: folds 
+antler88: folds 
+deshbenitez: folds 
+Himik777: folds 
+Sophie9989: folds 
+julijan1313: folds 
+1BigP%cket@@: calls 50
+i.luser: folds 
+DUTUNG: folds 
+Uncalled bet (25) returned to 1BigP%cket@@
+1BigP%cket@@ collected 60 from pot
+DUTUNG finished the tournament in 3762nd place
+1BigP%cket@@: doesn't show hand 
+*** SUMMARY ***
+Total pot 60 | Rake 0 
+Seat 1: julijan1313 folded before Flop (didn't bet)
+Seat 2: 1BigP%cket@@ (button) collected (60)
+Seat 3: i.luser (small blind) folded before Flop
+Seat 4: DUTUNG (big blind) folded before Flop
+Seat 5: ratouille1 folded before Flop (didn't bet)
+Seat 6: antler88 folded before Flop (didn't bet)
+Seat 7: deshbenitez folded before Flop (didn't bet)
+Seat 8: Himik777 folded before Flop (didn't bet)
+Seat 9: Sophie9989 folded before Flop (didn't bet)

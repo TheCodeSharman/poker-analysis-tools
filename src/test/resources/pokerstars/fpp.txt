@@ -1,0 +1,50 @@
+PokerStars Hand #73731876632: Tournament #493383783, 20FPP Hold'em No Limit - Level I (10/20) - 2012/01/13 6:05:01 AEST [2012/01/12 14:05:01 ET]
+Table '493383783 17' 9-max Seat #1 is the button
+Seat 1: julijan1313 (1500 in chips) 
+Seat 2: 1BigP%cket@@ (1500 in chips) 
+Seat 3: i.luser (1500 in chips) is sitting out
+Seat 4: Ksuha pravo (1500 in chips) 
+Seat 5: ratouille1 (1500 in chips) 
+Seat 6: antler88 (1500 in chips) 
+Seat 7: deshbenitez (1500 in chips) 
+Seat 8: DimastrSush (1500 in chips) 
+Seat 9: Sophie9989 (1500 in chips) 
+1BigP%cket@@: posts small blind 10
+i.luser: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [Qh 2c]
+Ksuha pravo: calls 20
+ratouille1: calls 20
+antler88: folds 
+deshbenitez: folds 
+DimastrSush: folds 
+deshbenitez is sitting out
+Sophie9989: raises 60 to 80
+julijan1313: folds 
+1BigP%cket@@: folds 
+i.luser: folds 
+Ksuha pravo: calls 60
+ratouille1: calls 60
+*** FLOP *** [3d 6s 4d]
+Ksuha pravo: checks 
+ratouille1: checks 
+Sophie9989: bets 135
+Ksuha pravo: folds 
+ratouille1: folds 
+Uncalled bet (135) returned to Sophie9989
+Sophie9989 collected 270 from pot
+Sophie9989: doesn't show hand 
+*** SUMMARY ***
+Total pot 270 | Rake 0 
+Board [3d 6s 4d]
+Seat 1: julijan1313 (button) folded before Flop (didn't bet)
+Seat 2: 1BigP%cket@@ (small blind) folded before Flop
+Seat 3: i.luser (big blind) folded before Flop
+Seat 4: Ksuha pravo folded on the Flop
+Seat 5: ratouille1 folded on the Flop
+Seat 6: antler88 folded before Flop (didn't bet)
+Seat 7: deshbenitez folded before Flop (didn't bet)
+Seat 8: DimastrSush folded before Flop (didn't bet)
+Seat 9: Sophie9989 collected (270)
+
+

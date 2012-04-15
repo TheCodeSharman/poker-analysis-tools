@@ -1,0 +1,48 @@
+PokerStars Game #73003528533: Tournament #491964110, $1.29+$0.21 USD Hold'em No Limit - Level III (25/50) - 2011/12/30 23:24:14 AEST [2011/12/30 7:24:14 ET]
+Table '491964110 3' 9-max Seat #4 is the button
+Seat 1: winnerm1310 (2295 in chips) 
+Seat 2: erkules55 (1415 in chips) 
+Seat 3: titiorvin (1565 in chips) 
+Seat 4: antler88 (2745 in chips) 
+Seat 5: Wolle2103 (2350 in chips) 
+Seat 6: Jacob Diaz (1680 in chips) 
+Seat 7: ForesterEkat (2015 in chips) 
+Seat 8: Scorp_pl (1350 in chips) 
+Seat 9: coondog1010 (5670 in chips) 
+Wolle2103: posts small blind 25
+Jacob Diaz: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [8s 8h]
+ForesterEkat has timed out while being disconnected
+ForesterEkat: folds 
+ForesterEkat is sitting out
+Scorp_pl: folds 
+coondog1010: folds 
+winnerm1310: calls 50
+erkules55: raises 1365 to 1415 and is all-in
+titiorvin: folds 
+antler88: folds 
+Wolle2103: folds 
+Jacob Diaz: folds 
+winnerm1310: calls 1365
+*** FLOP *** [Td 9s 6h]
+*** TURN *** [Td 9s 6h] [Jd]
+*** RIVER *** [Td 9s 6h Jd] [6d]
+*** SHOW DOWN ***
+winnerm1310: shows [4d 4s] (two pair, Sixes and Fours)
+erkules55: shows [Ts Th] (a full house, Tens full of Sixes)
+erkules55 collected 2905 from pot
+*** SUMMARY ***
+Total pot 2905 | Rake 0 
+Board [Td 9s 6h Jd 6d]
+Seat 1: winnerm1310 showed [4d 4s] and lost with two pair, Sixes and Fours
+Seat 2: erkules55 showed [Ts Th] and won (2905) with a full house, Tens full of Sixes
+Seat 3: titiorvin folded before Flop (didn't bet)
+Seat 4: antler88 (button) folded before Flop (didn't bet)
+Seat 5: Wolle2103 (small blind) folded before Flop
+Seat 6: Jacob Diaz (big blind) folded before Flop
+Seat 7: ForesterEkat folded before Flop (didn't bet)
+Seat 8: Scorp_pl folded before Flop (didn't bet)
+Seat 9: coondog1010 folded before Flop (didn't bet)
+
+

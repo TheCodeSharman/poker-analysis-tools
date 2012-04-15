@@ -1,0 +1,55 @@
+
+PokerStars Hand #73492962510: Tournament #492966247, $1.00+$0.25+$0.10 USD Hold'em No Limit - Level I (10/20) - 2012/01/09 1:01:47 AEST [2012/01/08 9:01:47 ET]
+Table '492966247 3' 9-max Seat #2 is the button
+Seat 1: 0sage0 (3000 in chips) 
+Seat 2: tom-fue (2800 in chips) 
+Seat 3: SSSR_GREECE (2980 in chips) 
+Seat 4: laura984 (3000 in chips) 
+Seat 5: spic222 (3000 in chips) 
+Seat 6: KILLMEDIABLO (3000 in chips) 
+Seat 7: micky_EKS (3420 in chips) 
+Seat 8: antler88 (3000 in chips) 
+Seat 9: Igrata55 (3000 in chips) 
+SSSR_GREECE: posts small blind 10
+laura984: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [5d 4c]
+spic222: raises 20 to 40
+KILLMEDIABLO: calls 40
+micky_EKS: calls 40
+antler88: folds 
+Igrata55: folds 
+0sage0: calls 40
+tom-fue: folds 
+SSSR_GREECE has timed out
+SSSR_GREECE: folds 
+SSSR_GREECE is sitting out
+laura984: calls 20
+*** FLOP *** [6h 9h 6d]
+laura984: checks 
+spic222: bets 2960 and is all-in
+SSSR_GREECE has returned
+KILLMEDIABLO: folds 
+micky_EKS: folds 
+0sage0: folds 
+laura984: calls 2960 and is all-in
+*** TURN *** [6h 9h 6d] [Kd]
+*** RIVER *** [6h 9h 6d Kd] [Ah]
+*** SHOW DOWN ***
+laura984: shows [9s 9c] (a full house, Nines full of Sixes)
+spic222: shows [Qh Kh] (a flush, Ace high)
+laura984 collected 6130 from pot
+laura984 wins the $0.25 bounty for eliminating spic222
+spic222 finished the tournament in 3106th place
+*** SUMMARY ***
+Total pot 6130 | Rake 0 
+Board [6h 9h 6d Kd Ah]
+Seat 1: 0sage0 folded on the Flop
+Seat 2: tom-fue (button) folded before Flop (didn't bet)
+Seat 3: SSSR_GREECE (small blind) folded before Flop
+Seat 4: laura984 (big blind) showed [9s 9c] and won (6130) with a full house, Nines full of Sixes
+Seat 5: spic222 showed [Qh Kh] and lost with a flush, Ace high
+Seat 6: KILLMEDIABLO folded on the Flop
+Seat 7: micky_EKS folded on the Flop
+Seat 8: antler88 folded before Flop (didn't bet)
+Seat 9: Igrata55 folded before Flop (didn't bet)
