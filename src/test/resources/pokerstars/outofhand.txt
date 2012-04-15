@@ -1,0 +1,45 @@
+PokerStars Hand #76512365909: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/03/02 23:42:23 AEST [2012/03/02 7:42:23 ET]
+Table '525756016 3' 9-max Seat #7 is the button
+Seat 1: winkom (895 in chips) 
+Seat 2: ACemartan (1990 in chips) 
+Seat 3: antler88 (1383 in chips) 
+Seat 4: enovision (1295 in chips) 
+Seat 5: h0stjke (1925 in chips) 
+Seat 6: Oilits (5856 in chips) 
+Seat 7: OmegaSayajin (1215 in chips) 
+Seat 8: Nights0ng (1000 in chips) out of hand (moved from another table into small blind)
+Seat 9: ILoveNatasha (5711 in chips) 
+ILoveNatasha: posts small blind 25
+winkom: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [7s 9c]
+ACemartan: folds 
+antler88: folds 
+enovision: folds 
+h0stjke: calls 50
+Oilits: calls 50
+OmegaSayajin: folds 
+ILoveNatasha: calls 25
+winkom: checks 
+*** FLOP *** [As 8s 5h]
+ILoveNatasha: checks 
+winkom: checks 
+h0stjke: checks 
+Oilits: bets 110
+ILoveNatasha: folds 
+winkom: folds 
+h0stjke: folds 
+Uncalled bet (110) returned to Oilits
+Oilits collected 200 from pot
+Oilits: doesn't show hand 
+*** SUMMARY ***
+Total pot 200 | Rake 0 
+Board [As 8s 5h]
+Seat 1: winkom (big blind) folded on the Flop
+Seat 2: ACemartan folded before Flop (didn't bet)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: enovision folded before Flop (didn't bet)
+Seat 5: h0stjke folded on the Flop
+Seat 6: Oilits collected (200)
+Seat 7: OmegaSayajin (button) folded before Flop (didn't bet)
+Seat 9: ILoveNatasha (small blind) folded on the Flop

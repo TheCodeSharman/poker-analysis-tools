@@ -1,0 +1,51 @@
+PokerStars Hand #76512518481: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/03/02 23:46:38 AEST [2012/03/02 7:46:38 ET]
+Table '525756016 3' 9-max Seat #5 is the button
+Seat 1: winkom (1515 in chips) 
+Seat 2: ACemartan (1915 in chips) 
+Seat 3: antler88 (1708 in chips) 
+Seat 4: enovision (1120 in chips) 
+Seat 5: h0stjke (1800 in chips) 
+Seat 6: Oilits (5931 in chips) 
+Seat 7: OmegaSayajin (1215 in chips) 
+Seat 8: Nights0ng (1000 in chips) 
+Seat 9: ILoveNatasha (5066 in chips) 
+Oilits: posts small blind 25
+OmegaSayajin: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [8c 3c]
+Nights0ng is disconnected 
+Nights0ng has timed out while disconnected
+Nights0ng: folds 
+Nights0ng is sitting out
+ILoveNatasha: folds 
+winkom: folds 
+ACemartan: raises 150 to 200
+antler88: folds 
+enovision: folds 
+h0stjke: folds 
+Oilits: calls 175
+OmegaSayajin: folds 
+*** FLOP *** [7s 4s Js]
+Oilits: bets 230
+ACemartan: raises 455 to 685
+Oilits: calls 455
+*** TURN *** [7s 4s Js] [9h]
+Oilits: checks 
+ACemartan: bets 1030 and is all-in
+Nights0ng has returned
+Oilits: folds 
+Uncalled bet (1030) returned to ACemartan
+ACemartan collected 1820 from pot
+ACemartan: doesn't show hand 
+*** SUMMARY ***
+Total pot 1820 | Rake 0 
+Board [7s 4s Js 9h]
+Seat 1: winkom folded before Flop (didn't bet)
+Seat 2: ACemartan collected (1820)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: enovision folded before Flop (didn't bet)
+Seat 5: h0stjke (button) folded before Flop (didn't bet)
+Seat 6: Oilits (small blind) folded on the Turn
+Seat 7: OmegaSayajin (big blind) folded before Flop
+Seat 8: Nights0ng folded before Flop (didn't bet)
+Seat 9: ILoveNatasha folded before Flop (didn't bet)

@@ -1,6 +1,7 @@
 import wx
 import wx.lib.wxcairo
 import cairo
+
 from gui.svg.svgreader import loadSvgFile
 from gui.svg.svgcairo import SvgCairoRenderer
 

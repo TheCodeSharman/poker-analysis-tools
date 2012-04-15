@@ -1,0 +1,45 @@
+PokerStars Hand #76511634283: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2012/03/02 23:21:32 AEST [2012/03/02 7:21:32 ET]
+Table '525756016 3' 9-max Seat #6 is the button
+Seat 1: winkom (1490 in chips) 
+Seat 3: antler88 (1115 in chips) 
+Seat 4: enovision (1670 in chips) 
+Seat 5: h0stjke (2080 in chips) 
+Seat 6: intricateboy (3275 in chips) 
+Seat 7: OmegaSayajin (1430 in chips) 
+Seat 8: sharkh0 (1660 in chips) 
+Seat 9: ILoveNatasha (2450 in chips) 
+OmegaSayajin: posts small blind 10
+sharkh0: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [4h 5h]
+ILoveNatasha: folds 
+winkom: calls 20
+antler88: calls 20
+enovision: folds 
+h0stjke: folds 
+intricateboy said, "donk"
+intricateboy: folds 
+OmegaSayajin: raises 80 to 100
+sharkh0: folds 
+winkom: calls 80
+antler88: calls 80
+*** FLOP *** [4s 7c 3c]
+OmegaSayajin: bets 300
+winkom: folds 
+antler88: calls 300
+*** TURN *** [4s 7c 3c] [As]
+OmegaSayajin: bets 300
+antler88: folds 
+Uncalled bet (300) returned to OmegaSayajin
+OmegaSayajin collected 920 from pot
+*** SUMMARY ***
+Total pot 920 | Rake 0 
+Board [4s 7c 3c As]
+Seat 1: winkom folded on the Flop
+Seat 3: antler88 folded on the Turn
+Seat 4: enovision folded before Flop (didn't bet)
+Seat 5: h0stjke folded before Flop (didn't bet)
+Seat 6: intricateboy (button) folded before Flop (didn't bet)
+Seat 7: OmegaSayajin (small blind) collected (920)
+Seat 8: sharkh0 (big blind) folded before Flop
+Seat 9: ILoveNatasha folded before Flop (didn't bet)

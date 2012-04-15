@@ -1,0 +1,55 @@
+PokerStars Hand #76512571079: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/03/02 23:48:06 AEST [2012/03/02 7:48:06 ET]
+Table '525756016 3' 9-max Seat #6 is the button
+Seat 1: winkom (1515 in chips) 
+Seat 2: ACemartan (2850 in chips) 
+Seat 3: antler88 (1708 in chips) 
+Seat 4: enovision (1120 in chips) 
+Seat 5: h0stjke (1800 in chips) 
+Seat 6: Oilits (5046 in chips) 
+Seat 7: OmegaSayajin (1165 in chips) 
+Seat 8: Nights0ng (1000 in chips) 
+Seat 9: ILoveNatasha (5066 in chips) 
+OmegaSayajin: posts small blind 25
+Nights0ng: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [Jc 2h]
+ILoveNatasha: folds 
+winkom: folds 
+ACemartan: folds 
+antler88: folds 
+enovision has timed out
+enovision: folds 
+enovision is sitting out
+h0stjke: folds 
+Oilits: raises 50 to 100
+OmegaSayajin: calls 75
+Nights0ng: folds 
+*** FLOP *** [Qh 8s 6s]
+OmegaSayajin: checks 
+Oilits: bets 100
+OmegaSayajin: calls 100
+*** TURN *** [Qh 8s 6s] [5s]
+OmegaSayajin: checks 
+Oilits: bets 170
+OmegaSayajin: raises 230 to 400
+Oilits: calls 230
+*** RIVER *** [Qh 8s 6s 5s] [5c]
+OmegaSayajin: bets 565 and is all-in
+Oilits: calls 565
+*** SHOW DOWN ***
+OmegaSayajin: shows [Td Kd] (a pair of Fives)
+Oilits: shows [9d 9s] (two pair, Nines and Fives)
+Oilits collected 2380 from pot
+OmegaSayajin finished the tournament in 43rd place
+*** SUMMARY ***
+Total pot 2380 | Rake 0 
+Board [Qh 8s 6s 5s 5c]
+Seat 1: winkom folded before Flop (didn't bet)
+Seat 2: ACemartan folded before Flop (didn't bet)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: enovision folded before Flop (didn't bet)
+Seat 5: h0stjke folded before Flop (didn't bet)
+Seat 6: Oilits (button) showed [9d 9s] and won (2380) with two pair, Nines and Fives
+Seat 7: OmegaSayajin (small blind) showed [Td Kd] and lost with a pair of Fives
+Seat 8: Nights0ng (big blind) folded before Flop
+Seat 9: ILoveNatasha folded before Flop (didn't bet)

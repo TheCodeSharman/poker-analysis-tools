@@ -1,0 +1,52 @@
+PokerStars Hand #76511393441: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2012/03/02 23:14:20 AEST [2012/03/02 7:14:20 ET]
+Table '525756016 3' 9-max Seat #4 is the button
+Seat 1: winkom (1600 in chips) 
+Seat 2: b.oleg16 (1380 in chips) 
+Seat 3: antler88 (1380 in chips) 
+Seat 4: jose tomas20 (1470 in chips) 
+Seat 5: h0stjke (1480 in chips) 
+Seat 6: intricateboy (1500 in chips) 
+Seat 7: OmegaSayajin (1500 in chips) 
+Seat 9: ILoveNatasha (1500 in chips) 
+h0stjke: posts small blind 10
+intricateboy: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [7h 6c]
+OmegaSayajin: folds 
+ILoveNatasha: raises 40 to 60
+winkom: calls 60
+b.oleg16: folds 
+antler88: folds 
+jose tomas20: raises 40 to 100
+h0stjke: folds 
+intricateboy: folds 
+ILoveNatasha: calls 40
+winkom: calls 40
+*** FLOP *** [Qd Ah 8h]
+ILoveNatasha: checks 
+winkom: checks 
+jose tomas20: bets 360
+ILoveNatasha: calls 360
+winkom: folds 
+*** TURN *** [Qd Ah 8h] [7s]
+ILoveNatasha: checks 
+jose tomas20: checks 
+*** RIVER *** [Qd Ah 8h 7s] [7d]
+ILoveNatasha: checks 
+jose tomas20: bets 400
+ILoveNatasha: calls 400
+*** SHOW DOWN ***
+jose tomas20: shows [5c 5h] (two pair, Sevens and Fives)
+ILoveNatasha: shows [Js As] (two pair, Aces and Sevens)
+ILoveNatasha collected 1850 from pot
+*** SUMMARY ***
+Total pot 1850 | Rake 0 
+Board [Qd Ah 8h 7s 7d]
+Seat 1: winkom folded on the Flop
+Seat 2: b.oleg16 folded before Flop (didn't bet)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: jose tomas20 (button) showed [5c 5h] and lost with two pair, Sevens and Fives
+Seat 5: h0stjke (small blind) folded before Flop
+Seat 6: intricateboy (big blind) folded before Flop
+Seat 7: OmegaSayajin folded before Flop (didn't bet)
+Seat 9: ILoveNatasha showed [Js As] and won (1850) with two pair, Aces and Sevens

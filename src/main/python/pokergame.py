@@ -70,6 +70,8 @@ class Hand(object):
         for a in betRound.actions:
             if a.action == Action.Fold:
                 betRound.livePlayers = betRound.livePlayers.difference([a.player.name])
+            elif a.action == Action.Show:
+                self.players[a.player.name].startingHand = a.cards
         # append the new bet round
         self.rounds.append(betRound)
     
@@ -93,7 +95,7 @@ class Player(object):
         self.initialStack = None  # Money
     
     def __repr__(self):
-        return ("Player( name = \"" + str(self.name) + "\""
+        return ("Player( name = \"" + repr(self.name) + "\""
                  + ", seat = " + str(self.seat)
                  + ", win = " + str(self.win)
                  + ", startingHand = " + str(self.startingHand) 
@@ -134,19 +136,20 @@ class BettingRound(object):
 
 class Action(object):
     '''The action a player takes'''
-    Raise, Bet, ReRaise, Call, Fold, Check, Post, Collect = range(8)
+    Raise, Bet, ReRaise, Call, Fold, Check, Post, Collect, Show, Muck = range(10)
     
     def actionToString(self):
-        return [ "Raise", "Bet", "Reraise", "Call", "Fold", "Check", "Post", "Collect" ][self.action]
+        return [ "Raise", "Bet", "Reraise", "Call", "Fold", "Check", "Post", "Collect", "Show", "Muck" ][self.action]
     
     def __init__(self):
         self.player = None          # Player
+        self.cards = None           # cards shown in a show action
         self.action = None          # ActionType
         self.amount = None             # Money
         self.stack = None           # Money
     
     def __repr__(self):
-        return ("Action( player = \"" + str(self.player.name) + "\""
+        return ("Action( player = \"" + repr(self.player.name) + "\""
                   + ", action = " + self.actionToString() 
                   + ", amount = " + str(self.amount)
                   + ", stack = " + str(self.stack) + ")")

@@ -1,0 +1,47 @@
+PokerStars Hand #76512701488: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/03/02 23:51:47 AEST [2012/03/02 7:51:47 ET]
+Table '525756016 3' 9-max Seat #2 is the button
+Seat 1: winkom (2865 in chips) 
+Seat 2: ACemartan (2775 in chips) 
+Seat 3: antler88 (1733 in chips) 
+Seat 4: enovision (1120 in chips) 
+Seat 5: h0stjke (1800 in chips) 
+Seat 6: Oilits (6261 in chips) 
+Seat 8: Nights0ng (950 in chips) 
+Seat 9: ILoveNatasha (3766 in chips) 
+antler88: posts small blind 25
+enovision: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [6d 4h]
+h0stjke: folds 
+Oilits: raises 100 to 150
+Nights0ng: raises 800 to 950 and is all-in
+ILoveNatasha: raises 2816 to 3766 and is all-in
+winkom: folds 
+ACemartan: folds 
+antler88: folds 
+enovision: folds 
+Oilits: calls 3616
+*** FLOP *** [8h Kd 9d]
+*** TURN *** [8h Kd 9d] [4c]
+*** RIVER *** [8h Kd 9d 4c] [Kc]
+*** SHOW DOWN ***
+Oilits: shows [9s 9h] (a full house, Nines full of Kings)
+ILoveNatasha: shows [Qd As] (a pair of Kings)
+Oilits collected 5632 from side pot
+Nights0ng: shows [Jd Js] (two pair, Kings and Jacks)
+Oilits collected 2925 from main pot
+ILoveNatasha finished the tournament in 41st place
+Nights0ng finished the tournament in 42nd place
+*** SUMMARY ***
+Total pot 8557 Main pot 2925. Side pot 5632. | Rake 0 
+Board [8h Kd 9d 4c Kc]
+Seat 1: winkom folded before Flop (didn't bet)
+Seat 2: ACemartan (button) folded before Flop (didn't bet)
+Seat 3: antler88 (small blind) folded before Flop
+Seat 4: enovision (big blind) folded before Flop
+Seat 5: h0stjke folded before Flop (didn't bet)
+Seat 6: Oilits showed [9s 9h] and won (8557) with a full house, Nines full of Kings
+Seat 8: Nights0ng showed [Jd Js] and lost with two pair, Kings and Jacks
+Seat 9: ILoveNatasha showed [Qd As] and lost with a pair of Kings
+
+

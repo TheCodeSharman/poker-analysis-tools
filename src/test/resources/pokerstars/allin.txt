@@ -1,0 +1,44 @@
+PokerStars Hand #76511439355: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2012/03/02 23:15:42 AEST [2012/03/02 7:15:42 ET]
+Table '525756016 3' 9-max Seat #5 is the button
+Seat 1: winkom (1500 in chips) 
+Seat 2: b.oleg16 (1380 in chips) 
+Seat 3: antler88 (1380 in chips) 
+Seat 4: jose tomas20 (610 in chips) 
+Seat 5: h0stjke (1470 in chips) 
+Seat 6: intricateboy (1480 in chips) 
+Seat 7: OmegaSayajin (1500 in chips) 
+Seat 9: ILoveNatasha (2490 in chips) 
+intricateboy: posts small blind 10
+OmegaSayajin: posts big blind 20
+*** HOLE CARDS ***
+Dealt to antler88 [8c 6s]
+ILoveNatasha: folds 
+winkom: folds 
+b.oleg16: folds 
+antler88: folds 
+jose tomas20: raises 20 to 40
+h0stjke: raises 110 to 150
+intricateboy: folds 
+OmegaSayajin: folds 
+jose tomas20: raises 460 to 610 and is all-in
+h0stjke: calls 460
+*** FLOP *** [Ac Jd 2d]
+*** TURN *** [Ac Jd 2d] [4d]
+*** RIVER *** [Ac Jd 2d 4d] [3d]
+*** SHOW DOWN ***
+jose tomas20: shows [Qc Kh] (high card Ace)
+h0stjke: shows [Qh Ah] (a pair of Aces)
+h0stjke collected 1250 from pot
+jose tomas20 finished the tournament in 80th place
+*** SUMMARY ***
+Total pot 1250 | Rake 0 
+Board [Ac Jd 2d 4d 3d]
+Seat 1: winkom folded before Flop (didn't bet)
+Seat 2: b.oleg16 folded before Flop (didn't bet)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: jose tomas20 showed [Qc Kh] and lost with high card Ace
+Seat 5: h0stjke (button) showed [Qh Ah] and won (1250) with a pair of Aces
+Seat 6: intricateboy (small blind) folded before Flop
+Seat 7: OmegaSayajin (big blind) folded before Flop
+Seat 9: ILoveNatasha folded before Flop (didn't bet)
+

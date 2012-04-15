@@ -1,0 +1,52 @@
+PokerStars Hand #76512632927: Tournament #525756016, $0.23+$0.02 USD Hold'em No Limit - Level III (25/50) - 2012/03/02 23:49:51 AEST [2012/03/02 7:49:51 ET]
+Table '525756016 3' 9-max Seat #8 is the button
+Seat 1: winkom (1515 in chips) 
+Seat 2: ACemartan (2850 in chips) 
+Seat 3: antler88 (1708 in chips) 
+Seat 4: enovision (1120 in chips) is sitting out
+Seat 5: h0stjke (1800 in chips) 
+Seat 6: Oilits (6261 in chips) 
+Seat 8: Nights0ng (950 in chips) 
+Seat 9: ILoveNatasha (5066 in chips) 
+ILoveNatasha: posts small blind 25
+winkom: posts big blind 50
+*** HOLE CARDS ***
+Dealt to antler88 [4s Jh]
+ACemartan: folds 
+antler88: folds 
+enovision: folds 
+h0stjke: folds 
+Oilits: folds 
+Nights0ng: folds 
+ILoveNatasha: calls 25
+winkom: raises 50 to 100
+ILoveNatasha: calls 50
+*** FLOP *** [Th 5h 2c]
+ILoveNatasha: checks 
+winkom: bets 100
+ILoveNatasha: calls 100
+*** TURN *** [Th 5h 2c] [Qs]
+ILoveNatasha: checks 
+winkom: bets 150
+ILoveNatasha: raises 300 to 450
+winkom: calls 300
+*** RIVER *** [Th 5h 2c Qs] [9d]
+ILoveNatasha: bets 650
+winkom: calls 650
+*** SHOW DOWN ***
+ILoveNatasha: shows [Kd 3c] (high card King)
+winkom: shows [Ks Tc] (a pair of Tens)
+winkom collected 2600 from pot
+*** SUMMARY ***
+Total pot 2600 | Rake 0 
+Board [Th 5h 2c Qs 9d]
+Seat 1: winkom (big blind) showed [Ks Tc] and won (2600) with a pair of Tens
+Seat 2: ACemartan folded before Flop (didn't bet)
+Seat 3: antler88 folded before Flop (didn't bet)
+Seat 4: enovision folded before Flop (didn't bet)
+Seat 5: h0stjke folded before Flop (didn't bet)
+Seat 6: Oilits folded before Flop (didn't bet)
+Seat 8: Nights0ng (button) folded before Flop (didn't bet)
+Seat 9: ILoveNatasha (small blind) showed [Kd 3c] and lost with high card King
+
+

@@ -1,3 +1,5 @@
+import codecs
+
 class BadAlternative(Exception):
     pass
 
@@ -6,12 +8,14 @@ class Scanner(object):
         self.file_ = None
         self.isEOF = False
         self.acc =""
+        self.char_num = 1
+        self.line_num = 1
  
     def parseFile(self,fileName):
-        self.file_ = open( fileName, 'r' )
+        self.file_ = codecs.open( fileName, 'r', 'utf_8_sig' )
         
-    def parseString(self,str):
-        self.acc = str
+    def parseString(self,s):
+        self.acc = s
  
     # Reads a number of characters ahead, only reads them
     # if they haven't already been read
@@ -33,6 +37,14 @@ class Scanner(object):
     def consume(self, size):
         txt = self.acc[0:size]
         self.acc = self.acc[size:]
+        
+        # The following is purely to keep track of the position
+        # with a file for error reporting purposes
+        self.char_num += size
+        nl = txt.find('\n');
+        if nl >= 0:
+            self.line_num += txt.count('\n')
+            self.char_num = size - nl
         return txt
     
     def consumeWhitespace(self):
@@ -51,7 +63,7 @@ class Scanner(object):
     def text( self, text ):
         txt = self.peek( len(text) )
         if txt != text:
-            raise Exception( 'Expecting \'' + text + '\' found \'' + txt +'\'') 
+            raise BadAlternative( 'Expecting \'' + text + '\' found \'' + txt +'\'') 
         else:
             self.consume( len(text) )
             
